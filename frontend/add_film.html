@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Film</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/add_film.css">
+
+</head>
+<body>
+    <nav class="navbar">
+        <img src="img/logo.png" class="logo" alt="">
+        <div class="join-box">
+            <p class="join-msg">Watch movies without limits</p>
+            <button class="btn join-btn">Join now</button>
+            <button class="btn">Sign in</button>
+        </div>
+    </nav>
+
+    <div class="add-container">
+        <div class="add-panel">
+            <div class="add-info">
+                <h3>Add new film</h3>
+                <form>
+                    <input type="text" placeholder="Title" id="movie_title">
+                    <input type="text" placeholder="Movie link" id="movie_link">
+                    <input type="text" placeholder="Poster link" id="movie_poster">
+                    <input type="text" placeholder="Backgraund image link" id="movie_image">
+                    <input type="text" placeholder="Rating" id="movie_rating">
+                    <input type="text" placeholder="Vote count" id="movie_vote_count">
+                    <input type="text" placeholder="Age limitation" id="movie_age_limitation">
+                    <input type="text" placeholder="Year ID" id="movie_year_id">
+                    <input type="text" placeholder="Ganre ID" id="movie_ganre_id">
+                    <input type="text" placeholder="Actors" id="movie_actors">
+                    <input type="text" placeholder="Overview" id="movie_overview">
+                    <input type="submit" value="Add film" onclick="add_film()">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/home.js"></script>
+    
+</body>
+</html>

@@ -1,0 +1,121 @@
+.profile-container{
+    position: relative;
+    width: 1000px;
+    height: 660px;
+    margin-top: 60px;
+}
+
+.profile-panel{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-around;;
+    align-items: center;
+    background: var(--primary-color);
+}
+
+.profile-info{
+    width: 50%;
+    margin: 10px 20px;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: starring;
+    flex-direction: column;
+    border: 2px solid var(--secondary-color);
+    border-radius: 30px;
+}
+
+.profile-info h3{
+    color: orange;
+    font-size: 2rem;
+}
+
+.username-box form, .email-box form, .phone-box form, .password-box form{
+    display: flex;
+    flex-direction: column;
+}
+
+.username-box form p, .email-box form p, .phone-box form p{
+    color: black;
+    font-size: 1.3rem;
+}
+
+.username-box form input, .email-box form input, .phone-box form input, .password-box form input{
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 10px;
+    outline: none;
+    font-size: 13px;
+    border: 1px solid var(--secondary-color);
+    display: none;
+}
+
+#update-username, #update-email, #update-phone, #update-password{
+    background: orange;
+    border: none;
+    max-width: 200px;
+    cursor: pointer;
+    display: none;
+}
+
+#update-username:hover, #update-email:hover, #update-phone:hover, #update-password:hover{
+    background: var(--secondary-color);
+    color: orange;
+}
+
+.edit-btn{
+    color: var(--secondary-color);
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.edit-btn:hover{
+    color: orange;
+}
+
+.subscription-info{
+    width: 35%;
+    background: var(--secondary-color);
+    display: flex;
+    flex-direction: column;
+    align-items: starring;
+    border-radius: 30px;
+    padding: 20px;
+}
+
+.subscription-info h3{
+    color: orange;
+    font-size: 2rem;
+    item-display: center;
+    margin: 0 15px;
+}
+
+.subsc-kind{
+    position: relative;
+    display: flex;
+    align-items: starring;
+    flex-direction: column;
+    color: white;
+}
+
+.subsc-btn{
+    width: 100%;
+    background: orange;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    font-style: italic;
+    font-size: 1rem;
+    padding: 13px;
+    margin: 10px 0;
+    box-shadow: 0.2px 4px 5px rgba(0,0,0,0.1);
+}
+
+.subsc-btn:hover{
+    color: white;
+    background: var(--primary-color);
+}
+

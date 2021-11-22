@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/profile.css">
+
+</head>
+<body>
+    <nav class="navbar">
+        <img src="img/logo.png" class="logo" alt="">
+        <div class="join-box">
+            <p class="join-msg">Watch movies without limits</p>
+            <button class="btn join-btn">Join now</button>
+            <button class="btn">Sign in</button>
+        </div>
+    </nav>
+
+    <div class="profile-container">
+        <div class="profile-panel">
+            <div class="profile-info">
+                <h3>User Profile</h3>
+                <div class="username-box"> 
+                    <form >
+                        <p class="username"><span>Username:</span></p>
+                        <div class="edit-btn" id="edit-username">Edit Username</div>
+                        <input type="text" placeholder="New username" id="new-username">
+                        <input type="submit" value="Update Username" id="update-username">
+                    </form>
+                </div>
+
+                <div class="email-box"> 
+                    <form >
+                        <p class="email"><span>Email:</span></p>
+                        <div class="edit-btn" id="edit-email">Edit Email</div>
+                        <input type="email" placeholder="New email" id="new_email">
+                        <input type="submit" value="Update email" id="update-email">
+                    </form>
+                </div>
+                
+                <div class="phone-box"> 
+                    <form >
+                        <p class="phone"><span>Phone number:</span></p>
+                        <div class="edit-btn" id="edit-phone">Edit Phone number</div>
+                        <input type="tel" placeholder="New phone number" id="new-phone">
+                        <input type="submit" value="Update phone number" id="update-phone">
+                    </form>
+                </div>
+
+                <div class="password-box"> 
+                    <form >
+                        <div class="edit-btn" id="edit-password">Edit Password</div>
+                        <input type="password" placeholder="Old Password" id="old-password">
+                        <input type="password" placeholder="New Password" id="new-password">
+                        <input type="password" placeholder="Confirm new password" id="c-new-password">
+                        <input type="submit" value="Update password" id="update-password">
+                    </form>
+                </div>   
+            </div>
+
+            <div class="subscription-info">
+                <h3>Buy subscription</h3>
+                <div class="subsc-kind">
+                    <button class="subsc-btn" id="month">For a month</button>
+                    <button class="subsc-btn" id="six-month">For a 6 months</button>
+                    <button class="subsc-btn" id="one-year">For a 1 year</button>
+                </div>
+                
+            </div>
+
+        </div>
+    </div>
+
+    <script src="js/api.js"></script>
+    <script src="js/home.js"></script>
+    <script src="js/form.js"></script>
+
+</body>
+</html>

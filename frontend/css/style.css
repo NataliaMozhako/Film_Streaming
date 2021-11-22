@@ -80,7 +80,7 @@ body{
     font-size: 1.5rem;
     color: #fff;
     font-family: inherit;
-    margin: 20px 0;
+    margin: 20px 0 0;
 }
 
 .search:focus{
@@ -90,6 +90,22 @@ body{
 
 .search::placeholder{
     color: #fff;
+}
+
+#add_film, #users_list{
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 0 0 20px;
+    display: none;
+}
+
+.admin-link{
+    color: var(--primary-color); 
+    text-decoration: none; 
+    border-bottom: 1px dashed var(--primary-color);
+    font-size: 1.5rem;
 }
 
 main{
@@ -124,6 +140,7 @@ main{
 
 .movie-info h3{
     margin-top: 0;
+    font-weight: 500;
 }
 
 .movie-info span{
@@ -164,6 +181,16 @@ main{
 
 .movie:hover .overview{
     transform:translateY(0)
+}
+
+.film_descr-link{
+    color: var(--primary-color); 
+    text-decoration: none; 
+    border-bottom: 1px dashed var(--primary-color);
+    font-size: 1.2rem;
+    font-weight: 700;
+    border: none;
+    background: white;
 }
 
 #tags{
@@ -224,4 +251,15 @@ main{
     border: 5px solid orange;
     font-size: 20px;
     font-weight: 600;
+}
+
+.know-more{
+    background-color: orange;
+    color:white;
+    font-size: 16px;
+    font-weight: bold;
+    border:0;
+    border-radius: 50px;
+    padding: 10px 20px;
+    margin-top: 5px;
 }
