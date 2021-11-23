@@ -24,8 +24,7 @@
 }
 
 .genres{
-    color: orange;
-    opacity: 0.6;
+    color: var(--third-color);
     margin: 30px 0;
 }
 
@@ -43,7 +42,7 @@
 .trailer-container,
 .recommendations,
 .comments-list{
-    color: orange;
+    color: var(--third-color);
     padding: 5vw 5vw 0;
 }
 
@@ -63,7 +62,7 @@ iframe{
     display: flex;
     justify-content: center;
     flex-direction: column;
-    color: orange;
+    color: var(--third-color);
     margin: 60px 75px 0;
 }
 
@@ -125,7 +124,7 @@ input#rate-10:checked ~ label{
 }
 
 .rating-box input[type="submit"]:hover{
-    background: orange;
+    background: var(--third-color);
     color: black;
 }
 
@@ -165,7 +164,7 @@ input#rate-10:checked ~ label{
 }
 
 .add-comment input[type="submit"]:hover{
-    background: orange;
+    background: var(--third-color);
     color: black;
 }
 

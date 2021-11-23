@@ -29,7 +29,7 @@
 }
 
 .profile-info h3{
-    color: orange;
+    color: #fff;
     font-size: 2rem;
 }
 
@@ -54,7 +54,7 @@
 }
 
 #update-username, #update-email, #update-phone, #update-password{
-    background: orange;
+    background: var(--third-color);
     border: none;
     max-width: 200px;
     cursor: pointer;
@@ -63,7 +63,7 @@
 
 #update-username:hover, #update-email:hover, #update-phone:hover, #update-password:hover{
     background: var(--secondary-color);
-    color: orange;
+    color: var(--third-color);
 }
 
 .edit-btn{
@@ -73,7 +73,7 @@
 }
 
 .edit-btn:hover{
-    color: orange;
+    color: var(--third-color);
 }
 
 .subscription-info{
@@ -87,7 +87,7 @@
 }
 
 .subscription-info h3{
-    color: orange;
+    color: var(--third-color);
     font-size: 2rem;
     item-display: center;
     margin: 0 15px;
@@ -103,7 +103,7 @@
 
 .subsc-btn{
     width: 100%;
-    background: orange;
+    background: var(--third-color);
     border-radius: 30px;
     border: none;
     cursor: pointer;

@@ -48,7 +48,7 @@ body{
 .firstBg .box button{
     cursor: pointer;
     padding: 10px 20px;
-    background: orange;
+    background: var(--third-color);
     color: var(--secondary-color);
     font-size: 1rem;
     font-weight: 500;
@@ -61,7 +61,7 @@ body{
     left: 0;
     width: 50%;
     height: 100%;
-    background: orange;
+    background: var(--third-color);
     z-index:1000;
     display: flex;
     justify-content: center;

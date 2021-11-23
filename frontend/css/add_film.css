@@ -23,8 +23,8 @@
 }
 
 .add-info h3{
-    margin: 10px;
-    color: orange;
+    margin: 10px 70px;
+    color: #fff;
     font-size: 2rem;
 }
 
@@ -45,12 +45,14 @@
 
 .add-info form input[type="submit"]{
     margin-top: 15px;
-    background: orange;
+    background: var(--third-color);
     border: none;
     cursor: pointer;
+    color: #fff;
+    font-size: 20px;
 }
 
 .add-info form input[type="submit"]:hover{
     background: var(--secondary-color);
-    color: orange;
+    color: var(--third-color);
    }

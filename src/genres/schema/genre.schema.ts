@@ -4,11 +4,11 @@ import { Document } from 'mongoose';
 export type GenreDocument = Genre & Document;
 
 @Schema()
-export class Genre{
+export class Genre {
 
   @Prop()
-  _id: string 
-  
+  _id: string
+
   @Prop()
   title: string
 

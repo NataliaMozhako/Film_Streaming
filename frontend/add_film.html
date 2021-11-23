@@ -23,7 +23,7 @@
         <div class="add-panel">
             <div class="add-info">
                 <h3>Add new film</h3>
-                <form>
+                <form onsubmit="return onSubmit(event)">
                     <input type="text" placeholder="Title" id="movie_title">
                     <input type="text" placeholder="Movie link" id="movie_link">
                     <input type="text" placeholder="Poster link" id="movie_poster">
@@ -35,7 +35,7 @@
                     <input type="text" placeholder="Ganre ID" id="movie_ganre_id">
                     <input type="text" placeholder="Actors" id="movie_actors">
                     <input type="text" placeholder="Overview" id="movie_overview">
-                    <input type="submit" value="Add film" onclick="add_film()">
+                    <input type="submit" value="Add film" onclick="()=> console.log('smth')">
                 </form>
             </div>
         </div>
@@ -43,6 +43,7 @@
 
     <script src="js/api.js"></script>
     <script src="js/home.js"></script>
+    <script src="js/add_film.js"></script>
     
 </body>
 </html>
