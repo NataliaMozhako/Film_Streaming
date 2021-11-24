@@ -11,7 +11,7 @@
 
 
 </head>
-<body onload="OnLoad()">
+<body>
     <nav class="navbar">
         <img src="img/logo.png" class="logo" alt="">
         <div class="join-box">
@@ -37,7 +37,7 @@
     <div class="rating-container">
         <h1 class="heading">Rate the movie</h1>
         <div class="rating-box">
-            <form> 
+            <form onsubmit="return getRating(event)"> 
                 <div class="star-widget">
                     <input type="radio" name="rate" id="rate-10" value="10">
                     <label for="rate-10" class="fas fa-star"></label>
@@ -60,7 +60,7 @@
                     <input type="radio" name="rate" id="rate-1" value="1">
                     <label for="rate-1" class="fas fa-star"></label>
                 </div>  
-                <input type="submit" value="Send" onclick="getRating()">
+                <input type="submit" value="Send">
             </form>           
         </div>
     </div>
@@ -94,7 +94,10 @@
 
     <script src="js/api.js"></script>
     <script src="js/home.js"></script>
+    <script src="js/utils.js"></script>
     <script src="js/film.js"></script>
+    
+
 
 </body>
 </html>
