@@ -14,7 +14,7 @@ import { CommentsModule } from './comments/comments.module';
 @Module({
   imports: [
     MongooseModule.forRoot(
-      'mongodb+srv://Natalia_Mozhako:mongodb@cluster0.jswpq.mongodb.net/MoviDatabase?retryWrites=true&w=majority',
+      'mongodb+srv://Natalia_Mozhako:mongodb@cluster0.jswpq.mongodb.net/MoviDatabase?retryWrites=true&w=majority'
     ),
     MoviesModule,
     UsersModule,

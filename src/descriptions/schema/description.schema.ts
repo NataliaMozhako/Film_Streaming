@@ -1,5 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
+import * as mongoose from 'mongoose';
+import { Movie } from 'src/movies/schemas/movie.schema';
 
 export type DescriptionDocument = Description & Document;
 
@@ -23,6 +25,9 @@ export class Description{
 
   @Prop()
   voteCount: number
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Movie' })
+  movie: Movie;
 }
 
 export const DescriptionSchema = SchemaFactory.createForClass(Description);

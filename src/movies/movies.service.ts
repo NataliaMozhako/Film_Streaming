@@ -4,10 +4,14 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Movie, MovieDocument } from './schemas/movie.schema';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
+import { CreateDescriptionDto } from 'src/descriptions/dto/create-description.dto';
+import { Description } from 'src/descriptions/schema/description.schema';
 
 @Injectable()
 export class MoviesService {
-    constructor(@InjectModel(Movie.name) private movieModel: Model<MovieDocument>){}
+    constructor(
+      @InjectModel(Movie.name) private movieModel: Model<MovieDocument>,
+      @InjectModel(Description.name) private descriptionModel: Model<MovieDocument>){}
 
 
     async getAll(): Promise<Movie[]>{
@@ -15,11 +19,14 @@ export class MoviesService {
     }
 
     async getById(id: string): Promise<Movie> {
-      return this.movieModel.findById(id)
+      return await this.movieModel.findById(id)
     }
-      
-    async create(movieDto: CreateMovieDto): Promise<Movie> {
-      const newMovie= new this.movieModel(movieDto) 
+    
+    async create(movieDto: CreateMovieDto, descriptionDto: CreateDescriptionDto): Promise<Movie> {
+      const newMovie = new this.movieModel(movieDto)
+      const newDescription = new this.descriptionModel(descriptionDto)
+      newDescription.save()
+      newDescription._id = newMovie._id 
       return newMovie.save()
     }
     

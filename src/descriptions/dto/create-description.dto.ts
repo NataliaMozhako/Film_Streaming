@@ -1,3 +1,5 @@
+import { ObjectId } from "mongoose"
+
 export class CreateDescriptionDto{
     readonly backdrop: string
     readonly overview: string
