@@ -6,7 +6,7 @@ function onSubmit(event) {
     const backdrop = document.getElementById('movie_image').value;
     const rating = document.getElementById('movie_rating').value;
     const actors = document.getElementById('movie_actors').value;
-    const ageLimitations = document.getElementById('movie_age_limitations').value;
+    const ageLimitation = document.getElementById('movie_age_limitation').value;
     const voteCount = document.getElementById('movie_vote_count').value;
     const overview = document.getElementById('movie_overview').value;
     const year_id = "2021";
@@ -20,7 +20,7 @@ function onSubmit(event) {
         ganre_id,
         overview,
         actors,
-        ageLimitations,
+        ageLimitation,
         rating,
         voteCount,
         backdrop
