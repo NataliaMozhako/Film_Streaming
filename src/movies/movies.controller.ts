@@ -1,5 +1,5 @@
-import { Body, Controller, Delete, Get, Header, HttpCode, HttpStatus, Param, Post, Put } from '@nestjs/common';
-import { DescriptionsService } from 'src/descriptions/descriptions.service';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { CreateCommentDto } from 'src/comments/dto/create-comment.dto';
 import { CreateDescriptionDto } from 'src/descriptions/dto/create-description.dto';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
@@ -9,7 +9,7 @@ import { Movie } from './schemas/movie.schema';
 @Controller('movies')
 export class MoviesController {
 
-  constructor(private readonly moviesService: MoviesService, private readonly descriptionService: DescriptionsService) { }
+  constructor(private readonly moviesService: MoviesService) { }
 
   @Get()
   getAll(): Promise<Movie[]> {
@@ -40,5 +40,10 @@ export class MoviesController {
   getByName(@Param() name: string): Promise<Movie[]> {
     return this.moviesService.getByName(name)
   }
+
+  @Post('/comment')
+    addComment(@Body() createCommentDto: CreateCommentDto) {
+        return this.moviesService.addComment(createCommentDto);
+    }
 }
 

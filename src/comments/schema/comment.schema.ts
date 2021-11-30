@@ -1,4 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Document } from 'mongoose';
 import * as mongoose from 'mongoose';
 import { Movie } from 'src/movies/schemas/movie.schema';
 import { User } from 'src/users/schema/user.schema';
@@ -13,6 +14,9 @@ export class Comment{
 
   @Prop()
   date: string
+
+  @Prop()
+  username: string
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   user: User;
