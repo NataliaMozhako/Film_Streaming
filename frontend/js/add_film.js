@@ -13,21 +13,17 @@ function onSubmit(event) {
     const ganre_id = "action";
 
     const data = {
-        movie: {
-            title,
-            movieLink,
-            poster,
-            year_id,
-            ganre_id
-        },
-        description: {
-            overview,
-            actors,
-            ageLimitations,
-            rating,
-            voteCount,
-            backdrop
-        }   
+        title,
+        movieLink,
+        poster,
+        year_id,
+        ganre_id,
+        overview,
+        actors,
+        ageLimitations,
+        rating,
+        voteCount,
+        backdrop
     };
 
     fetch('http://localhost:3000/movies/', {

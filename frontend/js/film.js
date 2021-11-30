@@ -67,7 +67,7 @@ function postComment(event) {
         userId
     };
 
-    fetch('http://localhost:3000/comments/', {
+    fetch('http://localhost:3000/movies/comment/', {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         headers: {
             //'Authorization': 'Bearer ' + this.state.clientToken,
