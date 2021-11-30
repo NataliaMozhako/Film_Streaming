@@ -1,5 +1,6 @@
 let movieData;
 let api_key = "14fd4993a9aad63c9047cbac216ee8d1";
+let params;
 
 const formatString = (currentIndex, maxIndex) => {
     return (currentIndex == maxIndex - 1) ? '' : ', ';
@@ -34,7 +35,7 @@ const setupMovieInfo = (data) => {
 
 window.onload = async () => {
     try {
-        let params = (new URL(document.location)).searchParams;
+        params = (new URL(document.location)).searchParams;
         if (!params.has('movie_id')) {
             throw new Error('Movie id doesn`t provided');
         };
@@ -51,9 +52,38 @@ window.onload = async () => {
         console.log(error);
         //goToLink('home.html');
     }
-
 }
 
+
+function postComment(event) {
+    event.preventDefault();  
+    const movieId = params.get('movie_id');
+    const content = document.getElementById('comment-text').value;
+    const userId = "User1";
+
+    const data = {
+        movieId,
+        content,
+        userId
+    };
+
+    fetch('http://localhost:3000/movies/', {
+        method: 'POST', // *GET, POST, PUT, DELETE, etc.
+        headers: {
+            //'Authorization': 'Bearer ' + this.state.clientToken,
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify(data) // body data type must match "Content-Type" header
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log('Success:', result);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });  
+}
 
 
 fetch(`${movie_detail_http}${movie_id}/credits?` + new URLSearchParams({
@@ -105,6 +135,7 @@ fetch(`${movie_detail_http}${movie_id}/recommendations?` + new URLSearchParams({
         `;
         }
     })
+
 
 function getRating(event) {
     event.preventDefault();

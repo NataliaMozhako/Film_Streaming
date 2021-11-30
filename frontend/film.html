@@ -69,8 +69,10 @@
         <h1 class="heading">Comments</h1>
         <div class="comments-container">
             <div class="add-comment">
-                <input type="text" placeholder="Write comment......." id="comment-text">
-                <input type="submit" value="Send comment" onclick="addComment()">
+                <form onsubmit="return postComment(event)"> 
+                    <input type="text" placeholder="Write comment......." id="comment-text">
+                    <input type="submit" value="Send comment">
+                </form>
             </div> 
             <div class="old-comment">
                 <div class="some-comment" id="1">
