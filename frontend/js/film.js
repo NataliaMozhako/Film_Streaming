@@ -54,7 +54,6 @@ window.onload = async () => {
     }
 }
 
-
 function postComment(event) {
     event.preventDefault();  
     const movieId = params.get('movie_id');

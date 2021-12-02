@@ -9,8 +9,8 @@ function onSubmit(event) {
     const ageLimitation = document.getElementById('movie_age_limitation').value;
     const voteCount = document.getElementById('movie_vote_count').value;
     const overview = document.getElementById('movie_overview').value;
-    const year_id = "2021";
-    const ganre_id = "action";
+    const year_id = document.getElementById('movie_year').value;
+    const ganre_id = document.getElementById('movie_ganre').value;
 
     const data = {
         title,

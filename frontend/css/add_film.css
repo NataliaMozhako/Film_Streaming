@@ -43,6 +43,13 @@
     border: 1px solid var(--secondary-color);
 }
 
+.add-info form select{
+    margin-bottom: 5px;
+    padding: 10px;
+    font-size: 15px;
+    border: 1px solid var(--secondary-color);
+}
+
 .add-info form input[type="submit"]{
     margin-top: 15px;
     background: var(--third-color);
