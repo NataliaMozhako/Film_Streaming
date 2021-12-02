@@ -7,9 +7,6 @@ export type GenreDocument = Genre & Document;
 
 @Schema()
 export class Genre{
-
-  @Prop()
-  _id: string 
   
   @Prop()
   title: string

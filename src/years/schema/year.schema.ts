@@ -7,9 +7,6 @@ export type YearDocument = Year & Document;
 
 @Schema()
 export class Year{
-
-  @Prop()
-  _id: number 
   
   @Prop()
   year: number
