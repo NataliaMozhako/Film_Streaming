@@ -6,9 +6,10 @@ import { Description, DescriptionSchema } from './schema/description.schema';
 
 @Module({
   providers: [DescriptionsService],
-  controllers: [DescriptionsController], 
+  controllers: [DescriptionsController],
   imports: [MongooseModule.forFeature([
-      {name: Description.name, schema: DescriptionSchema}
-    ])]
+    { name: Description.name, schema: DescriptionSchema }
+  ])],
+  exports: [DescriptionsService]
 })
-export class DescriptionsModule {}
+export class DescriptionsModule { }

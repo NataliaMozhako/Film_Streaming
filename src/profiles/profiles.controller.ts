@@ -23,10 +23,10 @@ export class ProfilesController {
   //   return this.profilesService.create(createUserDto)
   // }
 
-  // @Delete(':id')
-  // remove(@Param('id') id: string): Promise<Profile> {
-  //   return this.profilesService.remove(id)
-  // }
+  @Delete(':id')
+  remove(@Param('id') id: string): Promise<Profile> {
+    return this.profilesService.remove(id)
+  }
 
   @Put(':id')
   update(@Body() updateProfileDto: UpdateProfileDto, @Param('id') id: string): Promise<Profile> {

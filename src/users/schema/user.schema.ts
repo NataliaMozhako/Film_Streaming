@@ -22,9 +22,6 @@ export class User{
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Role' })
   role: Role;
-
-  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }] })
-  comment: Comment[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

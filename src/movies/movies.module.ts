@@ -17,14 +17,15 @@ import { MoviesService } from './movies.service';
 import { Movie, MovieSchema } from './schemas/movie.schema';
 
 @Module({
-  providers: [MoviesService, DescriptionsService, CommentsService, GenresService, YearsService],
-controllers: [MoviesController, DescriptionsController, CommentsController, GenresController, YearsController],
+  providers: [MoviesService],
+  controllers: [MoviesController],
   imports: [MongooseModule.forFeature([
-    {name: Movie.name, schema: MovieSchema },
-    {name: Description.name, schema: DescriptionSchema},
-    {name: Comment.name, schema: CommentSchema},
-    {name: Genre.name, schema: GenreSchema},
-    {name: Year.name, schema: YearSchema}
-  ])]
+    { name: Movie.name, schema: MovieSchema },
+    { name: Description.name, schema: DescriptionSchema },
+    { name: Comment.name, schema: CommentSchema },
+    { name: Genre.name, schema: GenreSchema },
+    { name: Year.name, schema: YearSchema }
+  ])],
+  exports: [MoviesService]
 })
-export class MoviesModule {}
+export class MoviesModule { }

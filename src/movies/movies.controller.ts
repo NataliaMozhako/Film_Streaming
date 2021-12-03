@@ -1,5 +1,4 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import { CreateCommentDto } from 'src/comments/dto/create-comment.dto';
 import { CreateDescriptionDto } from 'src/descriptions/dto/create-description.dto';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
@@ -35,11 +34,5 @@ export class MoviesController {
   update(@Body() updateMovieDto: UpdateMovieDto, @Param('id') id: string): Promise<Movie> {
     return this.moviesService.update(id, updateMovieDto)
   }
-
-  @Post('/comment')
-    addComment(@Body() createCommentDto: CreateCommentDto) {
-        return this.moviesService.addComment(createCommentDto);
-    }
-
 }
 

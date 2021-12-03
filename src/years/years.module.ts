@@ -5,10 +5,11 @@ import { YearsController } from './years.controller';
 import { YearsService } from './years.service';
 
 @Module({
-  providers: [YearsService], 
+  providers: [YearsService],
   controllers: [YearsController],
   imports: [MongooseModule.forFeature([
-    {name: Year.name, schema: YearSchema}
-  ])]
+    { name: Year.name, schema: YearSchema }
+  ])],
+  exports: [YearsService]
 })
-export class YearsModule {}
+export class YearsModule { }

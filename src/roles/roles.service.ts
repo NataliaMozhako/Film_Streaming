@@ -14,7 +14,7 @@ export class RolesService {
       return this.roleModel.find().exec();
     }
 
-    async getById(id: string): Promise<Role> {
+    async getById(id: string) /*: Promise<Role>*/ {
       return this.roleModel.findById(id)
     }
       

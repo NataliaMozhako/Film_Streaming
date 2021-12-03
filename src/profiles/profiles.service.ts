@@ -8,27 +8,27 @@ import { Profile, ProfileDocument } from './schema/profile.schema';
 @Injectable()
 export class ProfilesService {
 
-    constructor(@InjectModel(Profile.name) private profileModel: Model<ProfileDocument>){}
+  constructor(@InjectModel(Profile.name) private profileModel: Model<ProfileDocument>) { }
 
 
-    async getAll(): Promise<Profile[]>{
-      return this.profileModel.find().exec();
-    }
+  async getAll(): Promise<Profile[]> {
+    return this.profileModel.find().exec();
+  }
 
-    async getById(id: string): Promise<Profile> {
-      return this.profileModel.findById(id)
-    }
-      
-    // async create(movieDto: CreateProfileDto): Promise<Profile> {
-    //   const newMovie= new this.profileModel(movieDto) 
-    //   return newMovie.save()
-    // }
-    
-    // async remove(id: string): Promise<Profile> {
-    //     return this.profileModel.findByIdAndRemove(id)
-    // }
-    
-    async update(id: string, userDto: UpdateProfileDto): Promise<Profile> {
-        return this.profileModel.findByIdAndUpdate(id, userDto, {new: true})
-    }
+  async getById(id: string)/*: Promise<Profile>*/ {
+    return this.profileModel.findById(id)
+  }
+
+  async create(movieDto: CreateProfileDto)/*: Promise<Profile>*/ {
+    const newMovie = new this.profileModel(movieDto)
+    return newMovie.save()
+  }
+
+  async remove(id: string): Promise<Profile> {
+    return this.profileModel.findByIdAndRemove(id)
+  }
+
+  async update(id: string, userDto: UpdateProfileDto): Promise<Profile> {
+    return this.profileModel.findByIdAndUpdate(id, userDto, { new: true })
+  }
 }

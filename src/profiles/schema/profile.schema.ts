@@ -5,7 +5,9 @@ import { User } from 'src/users/schema/user.schema';
 export type ProfileDocument = Profile & Document;
 
 @Schema()
-export class Profile{
+export class Profile {
+
+  _id: mongoose.ObjectId;
 
   @Prop()
   phoneNumber: number
