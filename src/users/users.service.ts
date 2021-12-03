@@ -41,8 +41,8 @@ export class UsersService {
     const profile = await this.profileService.getById(user.profile.toString())
     const role = await this.roleService.getById(user.role.toString())
     this.removeProfile(profile._id)
-    const indexRole = role.user.indexOf(user._id, 0);
-    if (indexRole > -1) {
+    const indexRole = role.user.indexOf(user._id, 0)
+    if (indexRole > -1){
       role.user.splice(indexRole, 1);
     }
     role.save()

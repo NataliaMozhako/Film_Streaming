@@ -30,6 +30,7 @@ export class CommentsService {
     var _date = new Date()
     newComment.date = _date.toDateString() + ' ' + _date.getHours().toString() + ':' +
       _date.getMinutes().toString()
+    newComment.movie = movie._id
     movie.comment.push(newComment._id)
     movie.save()
     newComment.username = user.username
@@ -37,6 +38,13 @@ export class CommentsService {
   }
 
   async remove(id: string): Promise<Comment> {
+    const comment = await this.commentModel.findById(id)
+    const movie = await this.moviesService.getById(comment.movie.toString())
+    const indexMovie = movie.comment.indexOf(comment._id, 0)
+    if (indexMovie > -1){
+      movie.comment.splice(indexMovie, 1)
+    }
+    movie.save()
     return this.commentModel.findByIdAndRemove(id)
   }
 }
