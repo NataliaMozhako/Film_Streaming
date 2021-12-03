@@ -30,6 +30,26 @@ const setupMovieInfo = (data) => {
         <iframe src="https://youtube.com/embed/${data.movieLink}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
         `;
 
+    if (data.comment.length !== 0) {
+        showComments(data);
+    } else {
+        allcomments.innerHTML = `<h1 class="no-results">The film has no comments yet. Write your comment first!</h1>`
+    } 
+}
+
+function showComments(data) {
+    allcomments.innerHTML = '';
+    for(i=0; i<data.comment.length; i++){
+        const commentEl = document.createElement('div');
+        commentEl.classList.add('some-comment');
+        commentEl.id = data.comment[i]._id;
+        commentEl.innerHTML = `
+            <p class="username"><span>Username:</span>${data.comment[i].username}</p>
+            <p class="comment-descr">${data.comment[i].content}</p>
+            <p class="comment-date">${data.comment[i].date}</p>          
+          `
+        allcomments.appendChild(commentEl);
+    } 
 }
 
 
@@ -60,7 +80,7 @@ function postComment(event) {
     //const movieId = params.get('movie_id');
     const movieId = '61aa75964d6580537aa7a88e';
     const content = document.getElementById('comment-text').value;
-    const userId = "User1";
+    const userId = "61aa900743c06ce8dacd0b24";
 
     const data = {
         movieId,
@@ -68,7 +88,7 @@ function postComment(event) {
         userId
     };
 
-    fetch('http://localhost:3000/movies/comment/', {
+    fetch('http://localhost:3000/comments/', {
         method: 'POST', // *GET, POST, PUT, DELETE, etc.
         headers: {
             //'Authorization': 'Bearer ' + this.state.clientToken,
@@ -86,34 +106,7 @@ function postComment(event) {
     });  
 }
 
-function getComments(url) {
-    const movieId = params.get('movie_id');
-    fetch('http://localhost:3000/movies/comment').then(res => res.json()).then(data => {
-        console.log(data.results)
-        if (data.results.length !== 0) {
-            showComments(data.results);
-        } else {
-            allcomments.innerHTML = `<h1 class="no-results">The film has no comments yet. Write your comment first!</h1>`
-        }
-    })
-}
 
-function showComments(data) {
-    allcomments.innerHTML = '';
-    data.forEach(comment => {
-        const { id, movieId, content, userId, date } = comment;
-        const commentEl = document.createElement('div');
-        commentEl.classList.add('some-comment');
-        commentEl.id = id;
-        commentEl.innerHTML = `
-            <p class="username"><span>Username:</span>${userId}</p>
-            <p class="comment-descr">${content}</p>
-            <p class="comment-date">${date}</p>          
-          `
-        allcomments.appendChild(commentEl);
-    })
-
-}
 
 
 // fetch recommendations
