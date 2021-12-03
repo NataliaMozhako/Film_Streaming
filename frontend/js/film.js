@@ -1,6 +1,7 @@
 let movieData;
 let api_key = "14fd4993a9aad63c9047cbac216ee8d1";
 let params;
+const allcomments = document.querySelector('.old-comment');
 
 const formatString = (currentIndex, maxIndex) => {
     return (currentIndex == maxIndex - 1) ? '' : ', ';
@@ -36,6 +37,7 @@ const setupMovieInfo = (data) => {
 window.onload = async () => {
     try {
         params = (new URL(document.location)).searchParams;
+        console.log(params)
         if (!params.has('movie_id')) {
             throw new Error('Movie id doesn`t provided');
         };
@@ -50,7 +52,7 @@ window.onload = async () => {
     }
     catch (error) {
         console.log(error);
-        //goToLink('home.html');
+        goToLink('home.html');
     }
 }
 
@@ -82,6 +84,35 @@ function postComment(event) {
     .catch(error => {
         console.error('Error:', error);
     });  
+}
+
+function getComments(url) {
+    const movieId = params.get('movie_id');
+    fetch('http://localhost:3000/movies/comment').then(res => res.json()).then(data => {
+        console.log(data.results)
+        if (data.results.length !== 0) {
+            showComments(data.results);
+        } else {
+            allcomments.innerHTML = `<h1 class="no-results">The film has no comments yet. Write your comment first!</h1>`
+        }
+    })
+}
+
+function showComments(data) {
+    allcomments.innerHTML = '';
+    data.forEach(comment => {
+        const { id, movieId, content, userId, date } = comment;
+        const commentEl = document.createElement('div');
+        commentEl.classList.add('some-comment');
+        commentEl.id = id;
+        commentEl.innerHTML = `
+            <p class="username"><span>Username:</span>${userId}</p>
+            <p class="comment-descr">${content}</p>
+            <p class="comment-date">${date}</p>          
+          `
+        allcomments.appendChild(commentEl);
+    })
+
 }
 
 

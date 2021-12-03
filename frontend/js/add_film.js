@@ -1,3 +1,29 @@
+const selectMovieGanre = document.querySelector('#movie_ganre');
+
+function addGanresToSelect(data) {
+    selectMovieGanre.innerHTML = '';
+    data.forEach(ganre => {
+        const { id, title, movie_id } = ganre;
+        const ganreEl = document.createElement('option');
+        ganreEl.classList.add('some-ganre');
+        ganreEl.id = id;
+        ganreEl.innerHTML = `${title}`
+        selectMovieGanre.appendChild(ganreEl);
+    })
+}
+
+function getAllGenres(){
+    fetch('http://localhost:3000/genres').then(res => res.json()).then(data => {
+        console.log(data.results)
+        if (data.results.length !== 0) {
+            addGanresToSelect(data.results);
+        }
+    })
+}
+
+getAllGenres();
+
+
 function onSubmit(event) {
     event.preventDefault();  
     const title = document.getElementById('movie_title').value;
@@ -9,8 +35,10 @@ function onSubmit(event) {
     const ageLimitation = document.getElementById('movie_age_limitation').value;
     const voteCount = document.getElementById('movie_vote_count').value;
     const overview = document.getElementById('movie_overview').value;
-    const year_id = document.getElementById('movie_year').value;
-    const ganre_id = document.getElementById('movie_ganre').value;
+    const year = document.getElementById('movie_year').value;
+    const ganre = document.getElementById('movie_ganre').value;
+
+
 
     const data = {
         title,
