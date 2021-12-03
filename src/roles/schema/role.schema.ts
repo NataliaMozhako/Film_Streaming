@@ -6,10 +6,6 @@ export type RoleDocument = Role & Document;
 
 @Schema()
 export class Role{
-
-  @Prop()
-  _id: string 
-  
   @Prop()
   title: string
 

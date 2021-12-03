@@ -19,15 +19,15 @@ export class DescriptionsController {
     return this.descriptionsService.getById(id)
   }
 
-  @Post()
-  create(@Body() createDescriptionDto: CreateDescriptionDto): Promise<Description> {
-    return this.descriptionsService.create(createDescriptionDto)
-  }
+  // @Post()
+  // create(@Body() createDescriptionDto: CreateDescriptionDto): Promise<Description> {
+  //   return this.descriptionsService.create(createDescriptionDto)
+  // }
 
-  @Delete(':id')
-  remove(@Param('id') id: string): Promise<Description> {
-    return this.descriptionsService.remove(id)
-  }
+  // @Delete(':id')
+  // remove(@Param('id') id: string): Promise<Description> {
+  //   return this.descriptionsService.remove(id)
+  // }
 
   @Put(':id')
   update(@Body() updateDescriptionDto: UpdateDescriptionDto, @Param('id') id: string): Promise<Description> {

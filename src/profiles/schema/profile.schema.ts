@@ -6,8 +6,6 @@ export type ProfileDocument = Profile & Document;
 
 @Schema()
 export class Profile{
-  @Prop()
-  username: string
 
   @Prop()
   phoneNumber: number

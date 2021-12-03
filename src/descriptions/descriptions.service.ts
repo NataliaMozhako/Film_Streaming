@@ -11,9 +11,9 @@ export class DescriptionsService {
     constructor(@InjectModel(Description.name) private descriptionModel: Model<DescriptionDocument>){}
 
 
-    // async getAll(): Promise<Description[]>{
-    //   return this.descriptionModel.find().exec();
-    // }
+    async getAll(): Promise<Description[]>{
+      return this.descriptionModel.find().exec();
+    }
 
     async getById(id: string): Promise<Description> {
       return this.descriptionModel.findById(id)
