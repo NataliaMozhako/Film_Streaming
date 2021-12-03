@@ -47,18 +47,31 @@ export class MoviesService {
   }
   
   async remove(id: string): Promise<Movie> {
-    // const movie = await this.movieModel.findById(id)
-    // this.descriptionModel.findByIdAndRemove(movie.description)
+    const movie = await this.movieModel.findById(id)
+    const description = await this.descriptionModel.findById(movie.description)
+    const year = await this.yearModel.findById(movie.year)
+    const genre = await this.genreModel.findById(movie.genre)
+    this.removeDescription(description._id)
+    const indexYear = year.movie.indexOf(movie._id, 0);
+    if (indexYear > -1) {
+      year.movie.splice(indexYear, 1);
+    }
+    const indexGenre = genre.movie.indexOf(movie._id, 0);
+    if (indexGenre > -1) {
+      genre.movie.splice(indexGenre, 1);
+    }
+    year.save()
+    genre.save()
     return this.movieModel.findByIdAndRemove(id)
+  }
+
+  async removeDescription(id: string): Promise<Description> {
+    return this.descriptionModel.findByIdAndRemove(id)
   }
   
   async update(id: string, movieDto: UpdateMovieDto): Promise<Movie> {
       return this.movieModel.findByIdAndUpdate(id, movieDto, {new: true})
   }
-
-  async getByName(namef: string): Promise<Movie[]>{
-    return this.movieModel.find({name: namef})
-  }  
 
   async addComment(dto: CreateCommentDto): Promise<Comment> {
     const movie = await this.movieModel.findById(dto.movieId)
@@ -69,5 +82,6 @@ export class MoviesService {
     await movie.save()
     return newComment
   }
+
 }
 

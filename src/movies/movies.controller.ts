@@ -36,14 +36,10 @@ export class MoviesController {
     return this.moviesService.update(id, updateMovieDto)
   }
 
-  @Get()
-  getByName(@Param() name: string): Promise<Movie[]> {
-    return this.moviesService.getByName(name)
-  }
-
   @Post('/comment')
     addComment(@Body() createCommentDto: CreateCommentDto) {
         return this.moviesService.addComment(createCommentDto);
     }
+
 }
 
