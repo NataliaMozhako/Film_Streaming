@@ -3,62 +3,62 @@ let api_key = "14fd4993a9aad63c9047cbac216ee8d1";
 let params;
 const allcomments = document.querySelector('.old-comment');
 
-const formatString = (currentIndex, maxIndex) => {
-    return (currentIndex == maxIndex - 1) ? '' : ', ';
-}
-
 const setupMovieInfo = (data) => {
     const movieName = document.querySelector('.movie-name');
     const genres = document.querySelector('.genres');
     const des = document.querySelector('.des');
     const title = document.querySelector('title');
     const backdrop = document.querySelector('.movie-info');
+    const cast = document.querySelector('.starring');
+    let trailerContainer = document.querySelector('.trailer-container');
 
     title.innerHTML = movieName.innerHTML = data.title;
-    genres.innerHTML = `${data.release_date.split('-')[0]} | `;
-    for (let i = 0; i < data.genres.length; i++) {
-        genres.innerHTML += data.genres[i].name + formatString(i, data.genres.length);
+    genres.innerHTML = data.year.year + '  |  ';
+    genres.innerHTML += data.genre.title;
+    genres.innerHTML += '  |  +' + data.description.ageLimitation;
+
+    if (data.description.backdrop == null) {
+        data.description.backdrop = data.poster;
     }
 
-    if (data.adult == true) {
-        genres.innerHTML += ' | +18';
-    }
+    des.innerHTML = data.description.overview.substring(0, 200) + '...';
+    backdrop.style.backgroundImage = `url(${original_img_url}${data.description.backdrop})`;
 
-    if (data.backdrop_path == null) {
-        data.backdrop_path = data.poster_path;
-    }
+    cast.innerHTML += data.description.actors;
 
-    des.innerHTML = data.overview.substring(0, 200) + '...';
+    trailerContainer.innerHTML += `
+        <iframe src="https://youtube.com/embed/${data.movieLink}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        `;
 
-    backdrop.style.backgroundImage = `url(${original_img_url}${data.backdrop_path})`;
 }
 
 
 window.onload = async () => {
     try {
-        params = (new URL(document.location)).searchParams;
-        console.log(params)
-        if (!params.has('movie_id')) {
-            throw new Error('Movie id doesn`t provided');
-        };
-
-        const response = await fetch(`${movie_detail_http}/${params.get('movie_id')}?` + new URLSearchParams({
-            api_key: api_key
-        })) 
-        
+        //params = (new URL(document.location)).searchParams;
+        //console.log(params)
+        //if (!params.has('movie_id')) {
+            //throw new Error('Movie id doesn`t provided');
+        //};
+        const movie_id = '61aa75964d6580537aa7a88e';
+        //const response = await fetch(`${movie_detail_http}/${params.get('movie_id')}?` + new URLSearchParams({
+        //    api_key: api_key
+        //})) 
+        const response = await fetch('http://localhost:3000/movies/61aa75964d6580537aa7a88e');
         const data = await response.json();
         console.log(data);
         setupMovieInfo(data);
     }
     catch (error) {
         console.log(error);
-        goToLink('home.html');
+        //goToLink('home.html');
     }
 }
 
 function postComment(event) {
     event.preventDefault();  
-    const movieId = params.get('movie_id');
+    //const movieId = params.get('movie_id');
+    const movieId = '61aa75964d6580537aa7a88e';
     const content = document.getElementById('comment-text').value;
     const userId = "User1";
 
@@ -115,35 +115,6 @@ function showComments(data) {
 
 }
 
-
-fetch(`${movie_detail_http}${movie_id}/credits?` + new URLSearchParams({
-    api_key: api_key
-}))
-    .then(res => res.json())
-    .then(data => {
-        const cast = document.querySelector('.starring');
-        for (let i = 0; i < 5; i++) {
-            cast.innerHTML += data.cast[i].name + formatString(i, 5);
-        }
-    })
-
-// fetching video clips
-
-fetch(`${movie_detail_http}${movie_id}/videos?` + new URLSearchParams({
-    api_key: api_key
-}))
-    .then(res => res.json())
-    .then(data => {
-        let trailerContainer = document.querySelector('.trailer-container');
-
-        let maxClips = (data.results.length > 4) ? 4 : data.results.length;
-
-        for (let i = 0; i < maxClips; i++) {
-            trailerContainer.innerHTML += `
-        <iframe src="https://youtube.com/embed/${data.results[i].key}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        `;
-        }
-    })
 
 // fetch recommendations
 

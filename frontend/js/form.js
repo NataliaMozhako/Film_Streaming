@@ -3,16 +3,15 @@ const signupBtn = document.querySelector('.signupBtn');
 const formBx = document.querySelector('.formBx');
 const body = document.querySelector('body');
 
-
 function toSignUp(){
     formBx.classList.add('active')
     body.classList.add('active')
 }
 
-signinBtn.onclick = function(){
+/*signinBtn.onclick = function(){
     formBx.classList.remove('active')
     body.classList.add('active')
-}
+}*/
 
 function goToSignUp(href) {
     goToLink(href);

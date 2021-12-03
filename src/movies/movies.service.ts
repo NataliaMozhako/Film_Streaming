@@ -25,11 +25,16 @@ export class MoviesService {
     return this.movieModel.find().exec();
   }
 
+<<<<<<< Updated upstream
   async getById(id: string)/*: Promise<Movie>*/ {
+=======
+  async getById(id: string): Promise<Movie> {
+>>>>>>> Stashed changes
     return await this.movieModel.findById(id).populate('comment').populate('genre').populate('year').populate('description')
   }
 
   async create(movieDto: CreateMovieDto, descriptionDto: CreateDescriptionDto): Promise<Movie> {
+    console.log(movieDto);
     const newMovie = new this.movieModel(movieDto)
     const newDescription = new this.descriptionModel(descriptionDto)
     const year = await this.yearModel.findById(movieDto.yearId)

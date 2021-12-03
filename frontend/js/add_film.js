@@ -1,26 +1,45 @@
 const selectMovieGanre = document.querySelector('#movie_ganre');
+const selectMovieYear = document.querySelector('#movie_year');
 
 function addGanresToSelect(data) {
     selectMovieGanre.innerHTML = '';
     data.forEach(ganre => {
-        const { id, title, movie_id } = ganre;
+        const { _id, movie, title,  } = ganre;
         const ganreEl = document.createElement('option');
         ganreEl.classList.add('some-ganre');
-        ganreEl.id = id;
+        ganreEl.value = _id;
         ganreEl.innerHTML = `${title}`
         selectMovieGanre.appendChild(ganreEl);
     })
 }
 
 function getAllGenres(){
-    fetch('http://localhost:3000/genres').then(res => res.json()).then(data => {
-        console.log(data.results)
-        if (data.results.length !== 0) {
-            addGanresToSelect(data.results);
-        }
+    fetch('http://localhost:3000/genres/').then(res => res.json()).then(data => {
+        console.log(data)
+        addGanresToSelect(data);
     })
 }
 
+function addYearsToSelect(data) {
+    selectMovieYear.innerHTML = '';
+    data.forEach(years => {
+        const { _id, movie, year } = years;
+        const yearEl = document.createElement('option');
+        yearEl.classList.add('some-year');
+        yearEl.value = _id;
+        yearEl.innerHTML = `${year}`
+        selectMovieYear.appendChild(yearEl);
+    })
+}
+
+function getAllYears(){
+    fetch('http://localhost:3000/years/').then(res => res.json()).then(data => {
+        console.log(data)
+        addYearsToSelect(data);
+    })
+}
+
+getAllYears();
 getAllGenres();
 
 
@@ -35,23 +54,21 @@ function onSubmit(event) {
     const ageLimitation = document.getElementById('movie_age_limitation').value;
     const voteCount = document.getElementById('movie_vote_count').value;
     const overview = document.getElementById('movie_overview').value;
-    const year = document.getElementById('movie_year').value;
-    const ganre = document.getElementById('movie_ganre').value;
-
-
+    const yearId = selectMovieYear.value;
+    const genreId = selectMovieGanre.value;
 
     const data = {
-        title,
-        movieLink,
         poster,
-        year_id,
-        ganre_id,
-        overview,
+        movieLink,
+        title,
+        voteCount,
+        rating,
         actors,
         ageLimitation,
-        rating,
-        voteCount,
-        backdrop
+        overview,
+        backdrop,
+        yearId,
+        genreId
     };
 
     fetch('http://localhost:3000/movies/', {

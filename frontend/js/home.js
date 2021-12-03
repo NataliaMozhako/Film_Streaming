@@ -15,14 +15,19 @@ var totalPages = 100;
 
 
 var selectedGenre = []
-setGenre();
-function setGenre() {
+
+fetch('http://localhost:3000/genres/').then(res => res.json()).then(data => {
+        console.log(data)
+        setGenre(data);
+    })
+
+function setGenre(data) {
     tagsEl.innerHTML = '';
-    genres.forEach(genre => {
+    data.forEach(genre => {
         const t = document.createElement('div');
         t.classList.add('tag');
-        t.id = genre.id;
-        t.innerText = genre.name;
+        t.id = genre._id;
+        t.innerText = genre.title;
         t.addEventListener('click', () => {
             if (selectedGenre.length == 0) {
                 selectedGenre.push(genre.id);
