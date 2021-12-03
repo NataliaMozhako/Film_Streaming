@@ -5,19 +5,18 @@ import { Movie, MovieDocument } from './schemas/movie.schema';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { CreateDescriptionDto } from 'src/descriptions/dto/create-description.dto';
-import { Description, DescriptionDocument } from 'src/descriptions/schema/description.schema';
-import { Comment, CommentDocument } from 'src/comments/schema/comment.schema';
-import { Genre, GenreDocument } from 'src/genres/schema/genre.schema';
-import { Year, YearDocument } from 'src/years/schema/year.schema';
+import { Description} from 'src/descriptions/schema/description.schema';
+import { DescriptionsService } from 'src/descriptions/descriptions.service';
+import { GenresService } from 'src/genres/genres.service';
+import { YearsService } from 'src/years/years.service';
 
 @Injectable()
 export class MoviesService {
   constructor(
     @InjectModel(Movie.name) private movieModel: Model<MovieDocument>,
-    @InjectModel(Comment.name) private commentModel: Model<CommentDocument>,
-    @InjectModel(Description.name) private descriptionModel: Model<DescriptionDocument>,
-    @InjectModel(Genre.name) private genreModel: Model<GenreDocument>,
-    @InjectModel(Year.name) private yearModel: Model<YearDocument>
+    private readonly descriptionsService: DescriptionsService,
+    private readonly genresService: GenresService,
+    private readonly yearsService: YearsService
   ) { }
 
 
@@ -25,20 +24,16 @@ export class MoviesService {
     return this.movieModel.find().exec();
   }
 
-<<<<<<< Updated upstream
   async getById(id: string)/*: Promise<Movie>*/ {
-=======
-  async getById(id: string): Promise<Movie> {
->>>>>>> Stashed changes
     return await this.movieModel.findById(id).populate('comment').populate('genre').populate('year').populate('description')
   }
 
   async create(movieDto: CreateMovieDto, descriptionDto: CreateDescriptionDto): Promise<Movie> {
     console.log(movieDto);
     const newMovie = new this.movieModel(movieDto)
-    const newDescription = new this.descriptionModel(descriptionDto)
-    const year = await this.yearModel.findById(movieDto.yearId)
-    const genre = await this.genreModel.findById(movieDto.genreId)
+    const newDescription = await this.descriptionsService.create(descriptionDto)
+    const year = await this.yearsService.getById(movieDto.yearId.toString())
+    const genre = await this.genresService.getById(movieDto.genreId.toString())
     newMovie.year = year._id
     newMovie.genre = genre._id
     year.movie.push(newMovie._id)
@@ -52,9 +47,9 @@ export class MoviesService {
 
   async remove(id: string): Promise<Movie> {
     const movie = await this.movieModel.findById(id)
-    const description = await this.descriptionModel.findById(movie.description)
-    const year = await this.yearModel.findById(movie.year)
-    const genre = await this.genreModel.findById(movie.genre)
+    const description = await this.descriptionsService.getById(movie.description.toString())
+    const year = await this.yearsService.getById(movie.year.toString())
+    const genre = await this.genresService.getById(movie.genre.toString())
     this.removeDescription(description._id)
     const indexYear = year.movie.indexOf(movie._id, 0);
     if (indexYear > -1) {
@@ -70,7 +65,7 @@ export class MoviesService {
   }
 
   async removeDescription(id: string): Promise<Description> {
-    return this.descriptionModel.findByIdAndRemove(id)
+    return this.descriptionsService.remove(id)
   }
 
   async update(id: string, movieDto: UpdateMovieDto): Promise<Movie> {

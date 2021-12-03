@@ -13,8 +13,8 @@ import { User, UserDocument } from './schema/user.schema';
 export class UsersService {
   constructor(
     @InjectModel(User.name) private userModel: Model<UserDocument>,
-    private readonly roleServise: RolesService,
-    private readonly profileServise: ProfilesService) { }
+    private readonly roleService: RolesService,
+    private readonly profileService: ProfilesService) { }
 
 
   async getAll(): Promise<User[]> {
@@ -27,8 +27,8 @@ export class UsersService {
 
   async create(userDto: CreateUserDto, profileDto: CreateProfileDto): Promise<User> {
     const newUser = new this.userModel(userDto)
-    const newProfile = await this.profileServise.create(profileDto)
-    const role = await this.roleServise.getById(userDto.roleId.toString())
+    const newProfile = await this.profileService.create(profileDto)
+    const role = await this.roleService.getById(userDto.roleId.toString())
     newUser.profile = newProfile._id
     newUser.role = role._id
     role.user.push(newUser._id)
@@ -38,8 +38,8 @@ export class UsersService {
 
   async remove(id: string): Promise<User> {
     const user = await this.userModel.findById(id)
-    const profile = await this.profileServise.getById(user.profile.toString())
-    const role = await this.roleServise.getById(user.role.toString())
+    const profile = await this.profileService.getById(user.profile.toString())
+    const role = await this.roleService.getById(user.role.toString())
     this.removeProfile(profile._id)
     const indexRole = role.user.indexOf(user._id, 0);
     if (indexRole > -1) {
@@ -50,7 +50,7 @@ export class UsersService {
   }
 
   async removeProfile(id: string): Promise<Profile> {
-    return this.profileServise.remove(id)
+    return this.profileService.remove(id)
   }
 
   async update(id: string, userDto: UpdateUserDto): Promise<User> {

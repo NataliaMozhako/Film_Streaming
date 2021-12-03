@@ -15,7 +15,7 @@ export class YearsService {
       return this.yearModel.find().exec();
     }
 
-    async getById(id: string): Promise<Year> {
+    async getById(id: string)/*: Promise<Year>*/ {
       return this.yearModel.findById(id)
     }
       

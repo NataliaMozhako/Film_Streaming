@@ -15,18 +15,18 @@ export class DescriptionsService {
       return this.descriptionModel.find().exec();
     }
 
-    async getById(id: string): Promise<Description> {
+    async getById(id: string)/*: Promise<Description>*/ {
       return this.descriptionModel.findById(id)
     }
       
-    // async create(descriptionDto: CreateDescriptionDto): Promise<Description> {
-    //   const newDescription= new this.descriptionModel(descriptionDto) 
-    //   return newDescription.save()
-    // }
+    async create(descriptionDto: CreateDescriptionDto)/*: Promise<Description>*/ {
+      const newDescription= new this.descriptionModel(descriptionDto) 
+      return newDescription.save()
+    }
     
-    // async remove(id: string): Promise<Description> {
-    //     return this.descriptionModel.findByIdAndRemove(id)
-    // }
+    async remove(id: string)/*: Promise<Description> */{
+        return this.descriptionModel.findByIdAndRemove(id)
+    }
     
     async update(id: string, descriptionDto: UpdateDescriptionDto): Promise<Description> {
         return this.descriptionModel.findByIdAndUpdate(id, descriptionDto, {new: true})

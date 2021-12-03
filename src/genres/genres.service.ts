@@ -14,7 +14,7 @@ export class GenresService {
       return this.generModel.find().exec();
     }
 
-    async getById(id: string): Promise<Genre> {
+    async getById(id: string)/*: Promise<Genre> */{
       return this.generModel.findById(id)
     }
       

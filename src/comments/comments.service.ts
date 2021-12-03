@@ -3,7 +3,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { Comment, CommentDocument } from './schema/comment.schema';
-import { Date } from "mongoose"
 import { MoviesService } from 'src/movies/movies.service';
 import { UsersService } from 'src/users/users.service';
 
@@ -12,8 +11,8 @@ export class CommentsService {
 
   constructor(
     @InjectModel(Comment.name) private commentModel: Model<CommentDocument>,
-    private readonly moviesServise: MoviesService,
-    private readonly usersServise: UsersService) { }
+    private readonly moviesService: MoviesService,
+    private readonly usersService: UsersService) { }
 
 
   async getAll(): Promise<Comment[]> {
@@ -25,8 +24,8 @@ export class CommentsService {
   }
 
   async create(commentDto: CreateCommentDto): Promise<Comment> {
-    const movie = await this.moviesServise.getById(commentDto.movieId.toString())
-    const user = await this.usersServise.getById(commentDto.userId.toString())
+    const movie = await this.moviesService.getById(commentDto.movieId.toString())
+    const user = await this.usersService.getById(commentDto.userId.toString())
     const newComment = new this.commentModel(commentDto)
     var _date = new Date()
     newComment.date = _date.toDateString() + ' ' + _date.getHours().toString() + ':' +
