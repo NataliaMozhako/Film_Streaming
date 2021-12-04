@@ -1,7 +1,8 @@
-let movieData;
 let api_key = "14fd4993a9aad63c9047cbac216ee8d1";
 let params;
 const allcomments = document.querySelector('.old-comment');
+
+let currentFilm;
 
 const setupMovieInfo = (data) => {
     const movieName = document.querySelector('.movie-name');
@@ -55,30 +56,26 @@ function showComments(data) {
 
 window.onload = async () => {
     try {
-        //params = (new URL(document.location)).searchParams;
-        //console.log(params)
-        //if (!params.has('movie_id')) {
-            //throw new Error('Movie id doesn`t provided');
-        //};
-        const movie_id = '61aa75964d6580537aa7a88e';
-        //const response = await fetch(`${movie_detail_http}/${params.get('movie_id')}?` + new URLSearchParams({
-        //    api_key: api_key
-        //})) 
-        const response = await fetch('http://localhost:3000/movies/61aa75964d6580537aa7a88e');
+        params = (new URL(document.location)).searchParams;
+        console.log(params.get('_id'));
+        if (!params.has('_id')) {
+            throw new Error('Movie id doesn`t provided');
+        };
+        const response = await fetch('http://localhost:3000/movies/' + params.get('_id'));
         const data = await response.json();
+        currentFilm = data;
         console.log(data);
         setupMovieInfo(data);
     }
     catch (error) {
         console.log(error);
-        //goToLink('home.html');
+        goToLink('home.html');
     }
 }
 
 function postComment(event) {
     event.preventDefault();  
-    //const movieId = params.get('movie_id');
-    const movieId = '61aa75964d6580537aa7a88e';
+    const movieId = params.get('_id');
     const content = document.getElementById('comment-text').value;
     const userId = "61aa900743c06ce8dacd0b24";
 
@@ -107,37 +104,42 @@ function postComment(event) {
 }
 
 
-
-
-// fetch recommendations
-
-fetch(`${movie_detail_http}${movie_id}/recommendations?` + new URLSearchParams({
-    api_key: api_key
-}))
-    .then(res => res.json())
-    .then(data => {
-        let container = document.querySelector('.recommendations-container');
-        for (let i = 0; i < 16; i++) {
-            if (data.results[i].backdrop_path == null) {
-                i++;
-            }
-            container.innerHTML += `
-        <div class="movie" onclick="location.href = '/${data.results[i].id}'">
-            <img src="${IMG_URL}${data.results[i].backdrop_path}" alt="">
-            <p class="movie-title">${data.results[i].title}</p>
-        </div>
-        `;
-        }
-    })
-
-
 function getRating(event) {
     event.preventDefault();
+    console.log(currentFilm.description._id);
     var nameRadio = document.getElementsByName('rate');
     for (var i = 0; i < nameRadio.length; i++) {
         if (nameRadio[i].type === 'radio' && nameRadio[i].checked) {
             rezultatRadio = nameRadio[i].value;
         }
     }
+
+    const voteCount = currentFilm.description.voteCount + 1;
+    const rating = parseFloat((((currentFilm.description.rating * currentFilm.description.voteCount) + parseInt(rezultatRadio)) / voteCount).toFixed(1));
+    console.log(rezultatRadio);
+    console.log(voteCount);
+    console.log(rating);
+
+    const data = {
+        rating,
+        voteCount
+    };
+    
+    fetch('http://localhost:3000/descriptions/' + currentFilm.description._id, {
+        method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+        headers: {
+            //'Authorization': 'Bearer ' + this.state.clientToken,
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify(data) // body data type must match "Content-Type" header
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log('Success:', result);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
 }
 

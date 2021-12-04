@@ -22,7 +22,7 @@
     padding: 10px 20px;
     display: flex;
     justify-content: center;
-    align-items: starring;
+    align-items: stretch;
     flex-direction: column;
     border: 2px solid var(--secondary-color);
     border-radius: 30px;
@@ -72,7 +72,21 @@
     cursor: pointer;
 }
 
-.edit-btn:hover{
+.delete-account-box{
+    align-self: center;
+}
+
+.delete-account-btn {
+    color: var(--secondary-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 10px;
+    border: none;
+    background: transparent;
+}
+
+.edit-btn:hover,
+.delete-account-btn:hover{
     color: var(--third-color);
 }
 
@@ -81,7 +95,7 @@
     background: var(--secondary-color);
     display: flex;
     flex-direction: column;
-    align-items: starring;
+    align-items: stretch;
     border-radius: 30px;
     padding: 20px;
 }

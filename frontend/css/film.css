@@ -175,6 +175,11 @@ input#rate-10:checked ~ label{
     flex-direction: column;
 }
 
+.old-comment .no-results{
+    font-size: 1.5rem;
+    font-weight: 150;
+}
+
 .some-comment{
     position: relative;
     background: black;

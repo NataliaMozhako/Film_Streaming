@@ -73,7 +73,7 @@ body{
     margin: 100px 0 40px;
 }
 
-.search{
+.searchBar{
     background-color: transparent;
     border: 2px solid var(--primary-color);
     padding:0.5rem 1rem;
@@ -84,12 +84,12 @@ body{
     margin: 20px 0 0;
 }
 
-.search:focus{
+.searchBar:focus{
     outline:0;
     background-color: var(--primary-color);
 }
 
-.search::placeholder{
+.searchBar::placeholder{
     color: #fff;
 }
 
@@ -180,6 +180,11 @@ main{
     color: var(--primary-color);
 }
 
+.no-ganre-results{
+    display: none;
+    color: white;
+}
+
 .movie:hover .overview{
     transform:translateY(0)
 }
@@ -194,16 +199,17 @@ main{
     background: white;
 }
 
-#tags{
+#tags, #yeartags{
     width:80%;
     display:flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     margin: 10px auto;
+    margin-bottom: 20px;
 }
 
-.tag{
+.tag, .tagYear{
     color:white;
     padding:10px 20px;
     background-color: var(--third-color);
@@ -216,6 +222,11 @@ main{
 .tag.highlight{
     background-color: var(--primary-color);
 }
+
+.tag.active, .tagYear.active{
+    background-color: var(--primary-color);
+}
+
 .no-results{
     color:white;
     margin: 10px;

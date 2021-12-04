@@ -1,7 +1,14 @@
 const main = document.getElementById('main');
 const form = document.getElementById('form');
-const search = document.getElementById('search');
+const searchBar = document.getElementById('searchBar');
 const tagsEl = document.getElementById('tags');
+const yeartagsEl = document.getElementById('yeartags');
+let noGanreResults = document.querySelector('.no-ganre-results');
+
+let tagTitle;
+let allTagFilms;
+let tagYearTitle;
+let movieData = [];
 
 const prev = document.getElementById('prev')
 const next = document.getElementById('next')
@@ -14,97 +21,37 @@ var lastUrl = '';
 var totalPages = 100;
 
 
-var selectedGenre = []
-
-fetch('http://localhost:3000/genres/').then(res => res.json()).then(data => {
-        console.log(data)
-        setGenre(data);
-    })
-
-function setGenre(data) {
-    tagsEl.innerHTML = '';
-    data.forEach(genre => {
-        const t = document.createElement('div');
-        t.classList.add('tag');
-        t.id = genre._id;
-        t.innerText = genre.title;
-        t.addEventListener('click', () => {
-            if (selectedGenre.length == 0) {
-                selectedGenre.push(genre.id);
-            } else {
-                if (selectedGenre.includes(genre.id)) {
-                    selectedGenre.forEach((id, idx) => {
-                        if (id == genre.id) {
-                            selectedGenre.splice(idx, 1);
-                        }
-                    })
-                } else {
-                    selectedGenre.push(genre.id);
-                }
-            }
-            console.log(selectedGenre)
-            getMovies(API_URL + '&with_genres=' + encodeURI(selectedGenre.join(',')))
-            highlightSelection()
-        })
-        tagsEl.append(t);
-    })
-}
-
-function highlightSelection() {
-    const tags = document.querySelectorAll('.tag');
-    tags.forEach(tag => {
-        tag.classList.remove('highlight')
-    })
-    clearBtn()
-    if (selectedGenre.length != 0) {
-        selectedGenre.forEach(id => {
-            const hightlightedTag = document.getElementById(id);
-            hightlightedTag.classList.add('highlight');
-        })
-    }
-}
-
-function clearBtn() {
-    let clearBtn = document.getElementById('clear');
-    if (clearBtn) {
-        clearBtn.classList.add('highlight')
+function getColor(vote) {
+    if (vote >= 8) {
+        return 'green'
+    } else if (vote >= 5) {
+        return "orange"
     } else {
-
-        let clear = document.createElement('div');
-        clear.classList.add('tag', 'highlight');
-        clear.id = 'clear';
-        clear.innerText = 'Clear ganre';
-        clear.addEventListener('click', () => {
-            selectedGenre = [];
-            setGenre();
-            getMovies(API_URL);
-        })
-        tagsEl.append(clear);
+        return 'red'
     }
-
 }
-
-
-getMovies(API_URL);
 
 function getMovies(url) {
-    lastUrl = url;
     fetch(url).then(res => res.json()).then(data => {
-        console.log(data.results)
-        if (data.results.length !== 0) {
-            showMovies(data.results);
-            currentPage = data.page;
+        console.log(data)
+        movieData = data;
+        if (data.length !== 0) {
+            showMovies(data);
+            currentPage = 1;
             nextPage = currentPage + 1;
             prevPage = currentPage - 1;
-            totalPages = data.total_pages;
+            totalPages = parseInt(data.length / 20) + 1;
 
             current.innerText = currentPage;
 
-            if (currentPage <= 1) {
+            if (currentPage <= 1 && totalPages > 1) {
                 prev.classList.add('disabled');
                 next.classList.remove('disabled')
-            } else if (currentPage >= totalPages) {
+            } else if (currentPage >= totalPages && totalPages > 1) {
                 prev.classList.remove('disabled');
+                next.classList.add('disabled')
+            } else if (totalPages == 1) {
+                prev.classList.add('disabled');
                 next.classList.add('disabled')
             } else {
                 prev.classList.remove('disabled');
@@ -120,53 +67,167 @@ function getMovies(url) {
 
 function showMovies(data) {
     main.innerHTML = '';
-
-    data.forEach(movie => {
-        const { title, poster_path, vote_average, overview, id } = movie;
+    main.innerHTML += '<h1 class="no-ganre-results">No Results Found</h1>';
+    for(i=0; i<data.length; i++){
         const movieEl = document.createElement('div');
         movieEl.classList.add('movie');
-        movieEl.innerHTML = `
-          <img src="${poster_path ? IMG_URL + poster_path : "http://via.placeholder.com/1080x1580"}" alt="${title}">
-          <div class="movie-info">
-              <h3>${title}</h3>
-              <span class="${getColor(vote_average)}">${vote_average}</span>
-          </div>
-          <div class="overview">
-              <h3>Overview</h3>
-              ${overview}
-              <br/>
-              <input class="film_descr-link" value="Know More" type="button" onclick="goToLink('film.html?movie_id=${id}')" />
-          </div>
-          
-          `
-
+        movieEl.classList.add(data[i].genre);
+        movieEl.classList.add('all_genre');
+        movieEl.classList.add(data[i].year);
+        movieEl.classList.add('all_years');
+        movieEl.innerHTML = `<img src="${data[i].poster ? IMG_URL + data[i].poster : "http://via.placeholder.com/1080x1580"}" alt="${data[i].title}">
+        <div class="movie-info">
+            <h3>${data[i].title}</h3>
+            <span class="${getColor(data[i].description.rating)}">${data[i].description.rating}</span>
+        </div>
+        <div class="overview">
+            <h3>Overview</h3>
+            ${data[i].description.overview}
+            <br/>
+            <input class="film_descr-link" value="Know More" type="button" onclick="goToLink('film.html?_id=${data[i]._id}')" />
+        </div>
+         `
         main.appendChild(movieEl);
+    }
+
+    allTagFilms = document.querySelectorAll('.movie');
+    console.log(tagTitle);
+    console.log(tagYearTitle);
+    console.log(allTagFilms);
+ 
+    for(i=0; i<tagTitle.length; i++){
+        tagTitle[i].addEventListener('click',
+        filterFilms.bind(this, tagTitle[i]));
+    }
+
+    for(i=0; i<tagYearTitle.length; i++){
+        tagYearTitle[i].addEventListener('click',
+        filterFilmsYear.bind(this, tagYearTitle[i]));
+    }
+
+}
+
+function getMoviesGenres(url){
+    fetch(url).then(res => res.json()).then(data => {
+        console.log(data)
+        setGenre(data);
     })
-
 }
 
-function getColor(vote) {
-    if (vote >= 8) {
-        return 'green'
-    } else if (vote >= 5) {
-        return "orange"
-    } else {
-        return 'red'
+function setGenre(data) {
+    for(i=0; i<data.length; i++){
+        const t = document.createElement('div');
+        t.classList.add('tag');
+        t.id = data[i]._id;
+        t.innerText = data[i].title;
+        tagsEl.append(t);
     }
+
+    tagTitle = document.querySelectorAll('.tag');
 }
 
-form.addEventListener('submit', (e) => {
+function filterFilms(item){
+    changeActiveYearPosition(tagYearTitle[0]);
+    changeActivePosition(item);
+    let is_display = 0;
+    for(i=0; i<allTagFilms.length; i++){
+        if(allTagFilms[i].classList.contains(item.attributes.id.value)){
+            allTagFilms[i].style.display = "block";
+            noGanreResults = document.querySelector('.no-ganre-results');
+            noGanreResults.style.display = "none";
+            is_display++;
+        } else {
+            allTagFilms[i].style.display = "none";
+        }
+    }
+
+    if(is_display == 0){
+        noGanreResults = document.querySelector('.no-ganre-results');
+        noGanreResults.style.display = "block";
+    } 
+}
+    
+function changeActivePosition(activeItem){
+    for(i=0; i<tagTitle.length; i++){
+        tagTitle[i].classList.remove('active');
+    }
+    activeItem.classList.add('active');
+}
+
+function getMoviesYears(url){
+    fetch(url).then(res => res.json()).then(data => {
+        console.log(data)
+        setYear(data);
+    })
+}
+
+function setYear(data) {
+    for(i=0; i<data.length; i++){
+        const ty = document.createElement('div');
+        ty.classList.add('tagYear');
+        ty.id = data[i]._id;
+        ty.innerText = data[i].year;
+        yeartagsEl.append(ty);
+    }
+
+    tagYearTitle = document.querySelectorAll('.tagYear');
+}
+
+function filterFilmsYear(item){
+    changeActivePosition(tagTitle[0]);
+    changeActiveYearPosition(item);
+    let is_display = 0;
+    for(i=0; i<allTagFilms.length; i++){
+        if(allTagFilms[i].classList.contains(item.attributes.id.value)){
+            allTagFilms[i].style.display = "block";
+            noGanreResults = document.querySelector('.no-ganre-results');
+            noGanreResults.style.display = "none";
+            is_display++;
+        } else {
+            allTagFilms[i].style.display = "none";
+        }
+    }
+
+    if(is_display == 0){
+        noGanreResults = document.querySelector('.no-ganre-results');
+        noGanreResults.style.display = "block";
+    } 
+}
+    
+function changeActiveYearPosition(activeItem){
+    for(i=0; i<tagYearTitle.length; i++){
+        tagYearTitle[i].classList.remove('active');
+    }
+    activeItem.classList.add('active');
+}
+
+getMovies('http://localhost:3000/movies');
+getMoviesGenres('http://localhost:3000/genres/');
+getMoviesYears('http://localhost:3000/years/');
+
+searchBar.addEventListener('keyup', (e) => {
     e.preventDefault();
-
-    const searchTerm = search.value;
-    selectedGenre = [];
-    setGenre();
-    if (searchTerm) {
-        getMovies(searchURL + '&query=' + searchTerm)
+    changeActiveYearPosition(tagYearTitle[0]);
+    changeActivePosition(tagTitle[0]);
+    const searchString = e.target.value.toLowerCase();
+    console.log(searchString);
+    const filteredMovies = movieData.filter((movie) => {
+        return (
+            movie.title.toLowerCase().includes(searchString)
+        );
+    });
+    console.log(filteredMovies);
+    
+    if (searchString) {
+        if(filteredMovies.length !== 0){
+            showMovies(filteredMovies);
+        } else {
+            main.innerHTML = `<h1 class="no-results">No Results Found</h1>`
+        }
     } else {
-        getMovies(API_URL);
+        showMovies(movieData);
     }
-})
+});
 
 prev.addEventListener('click', () => {
     if (prevPage > 0) {
