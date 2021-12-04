@@ -10,6 +10,8 @@ import { RolesModule } from './roles/roles.module';
 import { YearsModule } from './years/years.module';
 import { DescriptionsModule } from './descriptions/descriptions.module';
 import { CommentsModule } from './comments/comments.module';
+import { AuthController } from './auth/auth.controller';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -23,7 +25,8 @@ import { CommentsModule } from './comments/comments.module';
     RolesModule,
     YearsModule,
     DescriptionsModule,
-    CommentsModule
+    CommentsModule,
+    AuthModule
   ],
   controllers: [AppController],
   providers: [AppService],

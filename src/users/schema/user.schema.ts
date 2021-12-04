@@ -8,6 +8,8 @@ export type UserDocument = User & Document;
 @Schema()
 export class User{
 
+  _id: mongoose.ObjectId
+
   @Prop()
   username: string
 
@@ -16,6 +18,9 @@ export class User{
 
   @Prop()
   password: string
+
+  @Prop()
+  blocked: boolean
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'Profile' })
   profile: Profile;

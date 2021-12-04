@@ -28,11 +28,12 @@ export class UsersService {
   async create(userDto: CreateUserDto, profileDto: CreateProfileDto): Promise<User> {
     const newUser = new this.userModel(userDto)
     const newProfile = await this.profileService.create(profileDto)
-    const role = await this.roleService.getById(userDto.roleId.toString())
+    const role = await this.roleService.getById("61aa0ddca058b667e986e6df")
     newUser.profile = newProfile._id
     newUser.role = role._id
     role.user.push(newUser._id)
     role.save()
+    newUser.blocked = false
     return newUser.save()
   }
 
@@ -55,5 +56,11 @@ export class UsersService {
 
   async update(id: string, userDto: UpdateUserDto): Promise<User> {
     return this.userModel.findByIdAndUpdate(id, userDto, { new: true })
+  }
+
+  async getUserByEmail(email: string){
+    const user = await this.userModel.findOne({'email': email})
+    console.log(user)
+    return user
   }
 }

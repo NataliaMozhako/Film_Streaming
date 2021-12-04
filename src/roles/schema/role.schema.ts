@@ -6,8 +6,6 @@ export type RoleDocument = Role & Document;
 
 @Schema()
 export class Role {
-  
-  _id: mongoose.ObjectId;
 
   @Prop()
   title: string
