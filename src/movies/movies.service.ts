@@ -21,7 +21,7 @@ export class MoviesService {
 
 
   async getAll(): Promise<Movie[]> {
-    return this.movieModel.find().exec();
+    return this.movieModel.find().populate('description');
   }
 
   async getById(id: string)/*: Promise<Movie>*/ {
