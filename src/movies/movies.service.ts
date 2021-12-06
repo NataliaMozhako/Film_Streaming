@@ -9,6 +9,7 @@ import { Description} from 'src/descriptions/schema/description.schema';
 import { DescriptionsService } from 'src/descriptions/descriptions.service';
 import { GenresService } from 'src/genres/genres.service';
 import { YearsService } from 'src/years/years.service';
+import { UpdateMovieGenreDto } from './dto/update-movie-genre.dto';
 
 @Injectable()
 export class MoviesService {
@@ -70,6 +71,21 @@ export class MoviesService {
 
   async update(id: string, movieDto: UpdateMovieDto): Promise<Movie> {
     return this.movieModel.findByIdAndUpdate(id, movieDto, { new: true })
+  }
+
+  async updateMovieGenre(id: string, movieGenreDto: UpdateMovieGenreDto){
+    const movie = await this.movieModel.findById(id)
+    const genre1 = await this.genresService.getById(movie.genre.toString())
+    const genre2 = await this.genresService.getById(movieGenreDto.newGenreId)
+    const indexGenre = genre1.movie.indexOf(movie._id, 0);
+    if (indexGenre > -1) {
+      genre1.movie.splice(indexGenre, 1);
+    }
+    genre1.save()
+    movie.genre = genre2._id
+    genre2.movie.push(movie._id)
+    genre2.save()
+    return movie.save()
   }
 
 }

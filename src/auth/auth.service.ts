@@ -29,9 +29,13 @@ export class AuthService {
     }
 
     async registration(createUserDto: CreateUserDto, createProfileDto: CreateProfileDto) {
-        const candidate = await this.userService.getUserByEmail(createUserDto.email)
-        if (candidate) {
+        const candidate1 = await this.userService.getUserByEmail(createUserDto.email)
+        if (candidate1) {
             throw new  HttpException('Пользователь с таким email уже зарегистрирован', HttpStatus.BAD_REQUEST)
+        }
+        const candidate2 = await this.userService.getUserByUsername(createUserDto.username)
+        if (candidate2) {
+            throw new  HttpException('Пользователь с таким username уже зарегистрирован', HttpStatus.BAD_REQUEST)
         }
         const hashPassword = await bcrypt.hash(createUserDto.password, 5)
         const user = await this.userService.create({...createUserDto, password: hashPassword}, createProfileDto)

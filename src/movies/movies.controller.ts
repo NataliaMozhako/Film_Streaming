@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { CreateDescriptionDto } from 'src/descriptions/dto/create-description.dto';
 import { CreateMovieDto } from './dto/create-movie.dto';
+import { UpdateMovieGenreDto } from './dto/update-movie-genre.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { MoviesService } from './movies.service';
 import { Movie } from './schemas/movie.schema';
@@ -33,6 +34,11 @@ export class MoviesController {
   @Put(':id')
   update(@Body() updateMovieDto: UpdateMovieDto, @Param('id') id: string): Promise<Movie> {
     return this.moviesService.update(id, updateMovieDto)
+  }
+
+  @Put('/genre/:id')
+  updateMovieGenre(@Param('id') id: string, @Body() movieGenreDto: UpdateMovieGenreDto){
+    return this.moviesService.updateMovieGenre(id, movieGenreDto)
   }
 }
 

@@ -67,6 +67,11 @@ export class UsersService {
     return user
   }
 
+  async getUserByUsername(username: string) {
+    const user = await this.userModel.findOne({ 'username': username })
+    return user
+  }
+
   async addRole(updateUserRoleDto: UpdateUserRoleDto, id: string) {
     const user = await this.userModel.findById(id)
     const role1 = await this.roleService.getById(user.role.toString())
