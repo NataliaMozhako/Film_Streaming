@@ -8,6 +8,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './schema/user.schema';
 import { UsersService } from './users.service';
+import { UpdatePasswordDto } from './dto/update-password.dto';
 
 @Controller('users')
 export class UsersController {
@@ -49,5 +50,10 @@ export class UsersController {
   @Get('/ban/:id')
   banUser(@Param('id') id: string){
     return this.usersService.banUser(id)
+  }
+
+  @Put('/password/:id')
+  updatePassword(@Param('id') id: string, @Body() updatePasswordDto: UpdatePasswordDto){
+    return this.usersService.updatePassword(id, updatePasswordDto)
   }
 }

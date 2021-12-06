@@ -1,6 +1,7 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import * as bcrypt from 'bcryptjs';
 import { CreateProfileDto } from 'src/profiles/dto/create-profile.dto';
 import { ProfilesService } from 'src/profiles/profiles.service';
 import { Profile } from 'src/profiles/schema/profile.schema';
@@ -9,6 +10,7 @@ import { UpdateUserRoleDto } from './dto/update-user-role.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserDocument } from './schema/user.schema';
+import { UpdatePasswordDto } from './dto/update-password.dto';
 
 @Injectable()
 export class UsersService {
@@ -95,5 +97,18 @@ export class UsersService {
       return user.save()
     }
     throw new HttpException('Пользователь не найден', HttpStatus.NOT_FOUND)
+  }
+
+  async updatePassword(id: string, updatePasswordDto: UpdatePasswordDto){
+    const user = await this.userModel.findById(id)
+    console.log(user)
+    const passwordEquals = await bcrypt.compare(updatePasswordDto.oldPassword, user.password)
+    console.log(passwordEquals)
+    if(passwordEquals){
+      const hashPassword = await bcrypt.hash(updatePasswordDto.newPassword, 5)
+      user.password = hashPassword
+      return user.save()
+    }
+    throw new UnauthorizedException({message: 'Неверно введен пароль'})
   }
 }
