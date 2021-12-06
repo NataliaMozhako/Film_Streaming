@@ -8,16 +8,15 @@ function toSignUp(){
     body.classList.add('active')
 }
 
-/*signinBtn.onclick = function(){
+function toSignIn(){
     formBx.classList.remove('active')
     body.classList.add('active')
-}*/
+}
 
 function goToSignUp(href) {
     goToLink(href);
     toSignUp();    
 }
-
 
 function validate(){
     var email = document.getElementById("email_login").value;

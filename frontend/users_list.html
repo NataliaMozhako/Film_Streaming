@@ -24,6 +24,13 @@
         <div class="user-panel">
             <div class="user-info">
                 <h3>All Users List</h3>
+
+                <div class="search_user">
+                    <form  id="form">
+                        <input type="text" name="searchUserBar" placeholder="Search user" id="searchUserBar" class="searchUserBar">
+                    </form>
+                </div>
+
                 <div class="user-table">
                     <table class="users-table">
                         <thead>
@@ -35,7 +42,7 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="table-body">
                             <tr>
                                 <td>1</td>
                                 <td>User1</td>
@@ -59,6 +66,7 @@
 
     <script src="js/api.js"></script>
     <script src="js/home.js"></script>
+    <script src="js/user_list.js"></script>
     
 </body>
 </html>

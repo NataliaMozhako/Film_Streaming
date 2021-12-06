@@ -24,43 +24,52 @@
             <div class="profile-info">
                 <h3>User Profile</h3>
                 <div class="username-box"> 
-                    <form >
+                    <form onsubmit="return putUsername(event)">
                         <p class="username"><span>Username:</span></p>
-                        <div class="edit-btn" id="edit-username">Edit Username</div>
+                        <div class="edit-btn" id="edit-username" onclick="toEditUsername()">Edit Username</div>
                         <input type="text" placeholder="New username" id="new-username">
                         <input type="submit" value="Update Username" id="update-username">
+                        <input type="button" value="Cancel" id="username-cancel-btn" onclick="hideElem()">
                     </form>
                 </div>
 
                 <div class="email-box"> 
-                    <form >
+                    <form onsubmit="return putEmail(event)">
                         <p class="email"><span>Email:</span></p>
-                        <div class="edit-btn" id="edit-email">Edit Email</div>
-                        <input type="email" placeholder="New email" id="new_email">
+                        <div class="edit-btn" id="edit-email" onclick="toEditEmail()">Edit Email</div>
+                        <input type="email" placeholder="New email" id="new-email">
                         <input type="submit" value="Update email" id="update-email">
+                        <input type="button" value="Cancel" id="email-cancel-btn" onclick="hideElem()">
                     </form>
                 </div>
                 
                 <div class="phone-box"> 
-                    <form >
+                    <form onsubmit="return putPhone(event)">
                         <p class="phone"><span>Phone number:</span></p>
-                        <div class="edit-btn" id="edit-phone">Edit Phone number</div>
+                        <div class="edit-btn" id="edit-phone" onclick="toEditPhone()">Edit Phone number</div>
                         <input type="tel" placeholder="New phone number" id="new-phone">
                         <input type="submit" value="Update phone number" id="update-phone">
+                        <input type="button" value="Cancel" id="phone-cancel-btn" onclick="hideElem()">
                     </form>
                 </div>
 
                 <div class="password-box"> 
-                    <form >
-                        <div class="edit-btn" id="edit-password">Edit Password</div>
+                    <form onsubmit="return putPassword(event)">
+                        <div class="edit-btn" id="edit-password" onclick="toEditPassword()">Edit Password</div>
                         <input type="password" placeholder="Old Password" id="old-password">
                         <input type="password" placeholder="New Password" id="new-password">
                         <input type="password" placeholder="Confirm new password" id="c-new-password">
                         <input type="submit" value="Update password" id="update-password">
+                        <input type="button" value="Cancel" id="password-cancel-btn" onclick="hideElem()">
                     </form>
                 </div> 
                 <div class="delete-account-box">
-                    <button class="delete-account-btn" onclick="toDeleteAccount()">Delete your account</button>
+                    <button class="delete-account-btn" onclick="showDeleteAccountOptions()">Delete your account</button>
+                    <div class="delete-options">
+                        <button class="confirm-delete-account-btn" onclick="toDeleteAccount()">Delete account</button>
+                        <button class="cancel-delete-account-btn" onclick="hideElem()">Cancel</button>
+                    </div>
+                    
                 </div>  
             </div>
 
@@ -80,6 +89,7 @@
     <script src="js/api.js"></script>
     <script src="js/home.js"></script>
     <script src="js/form.js"></script>
+    <script src="js/profile.js"></script>
 
 </body>
 </html>

@@ -24,13 +24,14 @@
     justify-content: center;
     align-items: stretch;
     flex-direction: column;
-    border: 2px solid var(--secondary-color);
-    border-radius: 30px;
+    //border: 2px solid var(--secondary-color);
+    //border-radius: 30px;
 }
 
 .profile-info h3{
     color: #fff;
     font-size: 2rem;
+    align-self: center;
 }
 
 .username-box form, .email-box form, .phone-box form, .password-box form{
@@ -42,8 +43,7 @@
     color: black;
     font-size: 1.3rem;
 }
-
-.username-box form input, .email-box form input, .phone-box form input, .password-box form input{
+#new-username, #new-email, #new-phone, #old-password, #new-password, #c-new-password{
     width: 100%;
     margin-bottom: 5px;
     padding: 10px;
@@ -53,15 +53,18 @@
     display: none;
 }
 
-#update-username, #update-email, #update-phone, #update-password{
+#update-username, #update-email, #update-phone, #update-password, #username-cancel-btn, #email-cancel-btn, #phone-cancel-btn, #password-cancel-btn{
     background: var(--third-color);
     border: none;
-    max-width: 200px;
+    width: 100%;
     cursor: pointer;
     display: none;
+    padding: 10px;
+    margin-bottom: 5px;
 }
 
-#update-username:hover, #update-email:hover, #update-phone:hover, #update-password:hover{
+#update-username:hover, #update-email:hover, #update-phone:hover, #update-password:hover,
+ #username-cancel-btn:hover, #email-cancel-btn:hover, #phone-cancel-btn:hover, #password-cancel-btn:hover{
     background: var(--secondary-color);
     color: var(--third-color);
 }
@@ -84,6 +87,33 @@
     border: none;
     background: transparent;
 }
+
+.delete-options{
+    display: flex;
+    justify-content: space-between; 
+}
+
+.confirm-delete-account-btn, .cancel-delete-account-btn {
+    background: var(--third-color);
+    border: none;
+    max-width: 200px;
+    cursor: pointer;
+    padding: 10px;
+    font-size: 1rem;
+    display: none;
+}
+
+.cancel-delete-account-btn{
+    background: transparent;
+    border: 1px solid var(--third-color);
+}
+
+
+.confirm-delete-account-btn:hover, .cancel-delete-account-btn:hover{
+    background: var(--secondary-color);
+    color: var(--third-color);
+}
+
 
 .edit-btn:hover,
 .delete-account-btn:hover{

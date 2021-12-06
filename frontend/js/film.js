@@ -77,7 +77,7 @@ function postComment(event) {
     event.preventDefault();  
     const movieId = params.get('_id');
     const content = document.getElementById('comment-text').value;
-    const userId = "61aa900743c06ce8dacd0b24";
+    const userId = "61abdb9cbf0163660e43e5ed";
 
     const data = {
         movieId,
