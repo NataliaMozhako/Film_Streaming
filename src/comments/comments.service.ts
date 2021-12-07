@@ -27,6 +27,7 @@ export class CommentsService {
     const movie = await this.moviesService.getById(commentDto.movieId.toString())
     const user = await this.usersService.getById(commentDto.userId.toString())
     const newComment = new this.commentModel(commentDto)
+    newComment.user = user._id
     var _date = new Date()
     newComment.date = _date.toDateString() + ' ' + _date.getHours().toString() + ':' +
       _date.getMinutes().toString()

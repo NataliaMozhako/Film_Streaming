@@ -25,7 +25,7 @@ export class UsersService {
     return this.userModel.find().populate('role').exec();
   }
 
-  async getById(id: string): Promise<User> {
+  async getById(id: string)/*: Promise<User> */{
     return await this.userModel.findById(id).populate('profile').populate('role')
   }
 
@@ -105,15 +105,18 @@ export class UsersService {
   }
 
   async updatePassword(id: string, updatePasswordDto: UpdatePasswordDto){
-    const user = await this.userModel.findById(id)
-    console.log(user)
-    const passwordEquals = await bcrypt.compare(updatePasswordDto.oldPassword, user.password)
-    console.log(passwordEquals)
-    if(passwordEquals){
-      const hashPassword = await bcrypt.hash(updatePasswordDto.newPassword, 5)
-      user.password = hashPassword
-      return user.save()
+    if(updatePasswordDto.oldPassword !== updatePasswordDto.newPassword){
+      const user = await this.userModel.findById(id)
+      console.log(user)
+      const passwordEquals = await bcrypt.compare(updatePasswordDto.oldPassword, user.password)
+      console.log(passwordEquals)
+      if(passwordEquals){
+        const hashPassword = await bcrypt.hash(updatePasswordDto.newPassword, 5)
+        user.password = hashPassword
+        return user.save()
+      }
+      throw new UnauthorizedException({message: 'Неверно введен пароль'})
     }
-    throw new UnauthorizedException({message: 'Неверно введен пароль'})
+    throw new UnauthorizedException({message: 'Новый  пароль не должен совпадать со старым'})  
   }
 }
