@@ -57,6 +57,7 @@ function showAllUsers(data) {
     tableEl.appendChild(tbodyEl);
 }
 
+navbarDesign();
 getAllUsers('http://localhost:3000/users');
 
 

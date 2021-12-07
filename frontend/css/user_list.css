@@ -1,6 +1,6 @@
 .user-container{
     position: relative;
-    width: 830px;
+    width: 950px;
     height: 680px;
     margin-top: 60px;
 }
@@ -31,6 +31,8 @@
 
 .user-table{
     margin: 20px 0;
+    overflow: auto scroll;
+    max-height: 400px;
 }
 
 .no-user-results{
@@ -44,7 +46,6 @@
     font-size: 1rem;
     min-width: 600px;
     border-radius: 5px 5px 0 0;
-    overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 

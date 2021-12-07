@@ -6,7 +6,6 @@ function getUserData(){
         var decode = window.atob(encode[1]);
         return JSON.parse(decode)
     }
-    
 }
 
 function goToLink(href){
@@ -24,7 +23,7 @@ function navbarDesign(){
     divEl.classList.add('join-box');
     const userInfo = getUserData();
 
-    navbarEl.innerHTML = ` <img src='https://i.postimg.cc/W4wxQkBb/logo.png' class="logo" alt='logo'/>`
+    navbarEl.innerHTML = ` <img src='https://i.postimg.cc/W4wxQkBb/logo.png' class="logo" alt='logo' onclick="goToLink('home.html')"/>`
 
     if (userInfo == null){
         divEl.innerHTML = `

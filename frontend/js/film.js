@@ -77,11 +77,15 @@ function postComment(event) {
     event.preventDefault();  
     const movieId = params.get('_id');
     const content = document.getElementById('comment-text').value;
-    const userId = getUserData().id;
 
-    if(userId == null){
+    if(getUserData()== null){
         const commentAdd = document.querySelector('.add-comment');
+        const errmessageEl = document.createElement('div');
+        errmessageEl.classList.add('mess-unauth-user');
+        errmessageEl.innerHTML = 'Error: An unauthorized user can`t send comments!';
+        commentAdd.appendChild(errmessageEl);
     } else {
+        const userId = getUserData().id;
         const data = {
             movieId,
             content,
@@ -112,40 +116,51 @@ function postComment(event) {
 
 function getRating(event) {
     event.preventDefault();
-    console.log(currentFilm.description._id);
-    var nameRadio = document.getElementsByName('rate');
-    for (var i = 0; i < nameRadio.length; i++) {
-        if (nameRadio[i].type === 'radio' && nameRadio[i].checked) {
-            rezultatRadio = nameRadio[i].value;
+    if(getUserData()== null){
+        const ratingAdd = document.querySelector('.rating-container');
+        const errmessageEl = document.createElement('div');
+        errmessageEl.classList.add('mess-unauth-user');
+        errmessageEl.classList.add('rating-error');
+        errmessageEl.innerHTML = 'Error: An unauthorized user can`t rate the movie!';
+        ratingAdd.appendChild(errmessageEl);
+    } else {
+        console.log(currentFilm.description._id);
+        var nameRadio = document.getElementsByName('rate');
+        for (var i = 0; i < nameRadio.length; i++) {
+            if (nameRadio[i].type === 'radio' && nameRadio[i].checked) {
+                rezultatRadio = nameRadio[i].value;
+            }
         }
+
+        const voteCount = currentFilm.description.voteCount + 1;
+        const rating = parseFloat((((currentFilm.description.rating * currentFilm.description.voteCount) + parseInt(rezultatRadio)) / voteCount).toFixed(1));
+        console.log(rezultatRadio);
+        console.log(voteCount);
+        console.log(rating);
+
+        const data = {
+            rating,
+            voteCount
+        };
+        
+        fetch('http://localhost:3000/descriptions/' + currentFilm.description._id, {
+            method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+            headers: {
+                //'Authorization': 'Bearer ' + this.state.clientToken,
+                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: JSON.stringify(data) // body data type must match "Content-Type" header
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log('Success:', result);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+
     }
-
-    const voteCount = currentFilm.description.voteCount + 1;
-    const rating = parseFloat((((currentFilm.description.rating * currentFilm.description.voteCount) + parseInt(rezultatRadio)) / voteCount).toFixed(1));
-    console.log(rezultatRadio);
-    console.log(voteCount);
-    console.log(rating);
-
-    const data = {
-        rating,
-        voteCount
-    };
     
-    fetch('http://localhost:3000/descriptions/' + currentFilm.description._id, {
-        method: 'PUT', // *GET, POST, PUT, DELETE, etc.
-        headers: {
-            //'Authorization': 'Bearer ' + this.state.clientToken,
-            'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: JSON.stringify(data) // body data type must match "Content-Type" header
-    })
-    .then(response => response.json())
-    .then(result => {
-        console.log('Success:', result);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
 }
 

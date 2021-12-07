@@ -33,6 +33,7 @@ body{
 
 .logo{
     height: 70%;
+    cursor: pointer;
 }
 
 .join-box{

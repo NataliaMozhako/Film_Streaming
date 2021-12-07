@@ -168,6 +168,12 @@ input#rate-10:checked ~ label{
     color: black;
 }
 
+.mess-unauth-user{
+    margin-top: 10px;
+    color: red;
+    font-size: 1rem;
+}
+
 .old-comment{
     margin-left: 50px; 
     display: flex;

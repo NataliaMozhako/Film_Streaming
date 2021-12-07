@@ -92,6 +92,20 @@ function showMovies(data) {
         main.appendChild(movieEl);
     }
 
+    let addFilm = document.querySelector('#add_film');
+    let usersList = document.querySelector('#users_list');
+    let deleteMovie = document.querySelector('.delete-movie');
+
+    if(getUserData().role == "61aa0e14a058b667e986e6e2"){
+        addFilm.style.display = "block";
+        usersList.style.display = "block";
+        deleteMovie.style.display = "block";
+    } else {
+        addFilm.style.display = "none";
+        usersList.style.display = "none";
+        deleteMovie.style.display = "none";
+    }
+
     allTagFilms = document.querySelectorAll('.movie');
     console.log(tagTitle);
     console.log(tagYearTitle);

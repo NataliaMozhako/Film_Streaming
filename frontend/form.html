@@ -24,11 +24,11 @@
         </div>
         <div class="formBx">
             <div class="form signinForm">
-                <form>
+                <form onsubmit="return toLogIn(event)">
                     <h3>Sign In</h3>
                     <input type="email" placeholder="Email" id="email_login">
                     <input type="password" placeholder="Password" id="password_login">
-                    <input type="submit" value="Login" onclick="validate()">
+                    <input type="submit" value="Login">
                 </form>
             </div>
 
