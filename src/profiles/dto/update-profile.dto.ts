@@ -1,4 +1,8 @@
+import { IsInt } from "class-validator"
+
 export class UpdateProfileDto {
-    readonly phoneNumber: number
-    readonly age: number
-  } 
+  @IsInt({message: 'Должно быть числом'})
+  readonly phoneNumber: number
+  @IsInt({message: 'Должно быть числом'})
+  readonly age: number
+} 

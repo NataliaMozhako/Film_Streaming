@@ -1,13 +1,14 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UsePipes } from '@nestjs/common';
 import { CreateYearDto } from './dto/create-year.dto';
 import { UpdateYearDto } from './dto/update-year.dto';
 import { Year } from './schema/year.schema';
 import { YearsService } from './years.service';
 
+
 @Controller('years')
 export class YearsController {
 
-  constructor(private readonly yearsService: YearsService){}
+  constructor(private readonly yearsService: YearsService) { }
 
   @Get()
   getAll(): Promise<Year[]> {

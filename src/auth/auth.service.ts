@@ -5,6 +5,7 @@ import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { UsersService } from 'src/users/users.service';
 import * as bcrypt from 'bcryptjs'
 import { User } from 'src/users/schema/user.schema';
+import { LoginDto } from 'src/users/dto/login-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -14,12 +15,12 @@ export class AuthService {
         private readonly jwtService: JwtService
     ) { }
 
-    async login(loginDto: CreateUserDto) {
+    async login(loginDto: LoginDto) {
         const user = await this.validateUser(loginDto)
         return this.generateToken(user)
     }
     
-    private async validateUser(loginDto: CreateUserDto) {
+    private async validateUser(loginDto: LoginDto) {
         const user = await this.userService.getUserByEmail(loginDto.email)
         const passwordEquals = await bcrypt.compare(loginDto.password, user.password)
         if(user && passwordEquals){

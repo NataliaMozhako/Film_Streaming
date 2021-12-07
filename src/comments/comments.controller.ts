@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, UsePipes } from '@nestjs/common';
+import { ValidationPipe } from 'src/pipes/validation.pipe';
 import { CommentsService } from './comments.service';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { Comment } from './schema/comment.schema';
@@ -18,6 +19,7 @@ export class CommentsController {
     return this.commentsService.getById(id)
   }
 
+  @UsePipes(ValidationPipe)
   @Post()
   create(@Body() createCreateDto: CreateCommentDto): Promise<Comment> {
     return this.commentsService.create(createCreateDto)

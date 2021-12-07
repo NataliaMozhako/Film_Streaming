@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseGuards, UsePipes } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { Roles } from 'src/auth/roles-auth.decorator';
 import { RolesGuard } from 'src/auth/roles.guard';
@@ -9,6 +9,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './schema/user.schema';
 import { UsersService } from './users.service';
 import { UpdatePasswordDto } from './dto/update-password.dto';
+import { ValidationPipe } from 'src/pipes/validation.pipe';
 
 @Controller('users')
 export class UsersController {
@@ -27,6 +28,7 @@ export class UsersController {
     return this.usersService.getById(id)
   }
 
+  @UsePipes(ValidationPipe)
   @Post()
   create(@Body() createUserDto: CreateUserDto, @Body() createProfileDto: CreateProfileDto): Promise<User> {
     return this.usersService.create(createUserDto, createProfileDto)

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UsePipes } from '@nestjs/common';
 import { CreateGenreDto } from './dto/create-gener.dto';
 import { UpdateGenreDto } from './dto/update-gener.dto';
 import { GenresService } from './genres.service';
@@ -6,8 +6,8 @@ import { Genre } from './schema/genre.schema';
 
 @Controller('genres')
 export class GenresController {
-    
-  constructor(private readonly genresService: GenresService){}
+
+  constructor(private readonly genresService: GenresService) { }
 
   @Get()
   getAll(): Promise<Genre[]> {

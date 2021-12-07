@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UsePipes } from '@nestjs/common';
+import { ValidationPipe } from 'src/pipes/validation.pipe';
 import { DescriptionsService } from './descriptions.service';
 import { CreateDescriptionDto } from './dto/create-description.dto';
 import { UpdateDescriptionDto } from './dto/update-description.dto';
@@ -7,7 +8,7 @@ import { Description } from './schema/description.schema';
 @Controller('descriptions')
 export class DescriptionsController {
 
-  constructor(private readonly descriptionsService: DescriptionsService){}
+  constructor(private readonly descriptionsService: DescriptionsService) { }
 
   @Get()
   getAll(): Promise<Description[]> {

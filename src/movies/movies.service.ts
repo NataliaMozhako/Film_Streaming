@@ -5,7 +5,7 @@ import { Movie, MovieDocument } from './schemas/movie.schema';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { CreateDescriptionDto } from 'src/descriptions/dto/create-description.dto';
-import { Description} from 'src/descriptions/schema/description.schema';
+import { Description } from 'src/descriptions/schema/description.schema';
 import { DescriptionsService } from 'src/descriptions/descriptions.service';
 import { GenresService } from 'src/genres/genres.service';
 import { YearsService } from 'src/years/years.service';
@@ -30,7 +30,6 @@ export class MoviesService {
   }
 
   async create(movieDto: CreateMovieDto, descriptionDto: CreateDescriptionDto): Promise<Movie> {
-    console.log(movieDto);
     const newMovie = new this.movieModel(movieDto)
     const newDescription = await this.descriptionsService.create(descriptionDto)
     const year = await this.yearsService.getById(movieDto.yearId.toString())
@@ -73,7 +72,7 @@ export class MoviesService {
     return this.movieModel.findByIdAndUpdate(id, movieDto, { new: true })
   }
 
-  async updateMovieGenre(id: string, movieGenreDto: UpdateMovieGenreDto){
+  async updateMovieGenre(id: string, movieGenreDto: UpdateMovieGenreDto) {
     const movie = await this.movieModel.findById(id)
     const genre1 = await this.genresService.getById(movie.genre.toString())
     const genre2 = await this.genresService.getById(movieGenreDto.newGenreId)

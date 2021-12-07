@@ -1,5 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UsePipes } from '@nestjs/common';
 import { CreateDescriptionDto } from 'src/descriptions/dto/create-description.dto';
+import { ValidationPipe } from 'src/pipes/validation.pipe';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieGenreDto } from './dto/update-movie-genre.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
@@ -21,6 +22,7 @@ export class MoviesController {
     return this.moviesService.getById(id)
   }
 
+  @UsePipes(ValidationPipe)
   @Post()
   create(@Body() createMovieDto: CreateMovieDto, @Body() createDescriptionDto: CreateDescriptionDto): Promise<Movie> {
     return this.moviesService.create(createMovieDto, createDescriptionDto)
@@ -37,7 +39,7 @@ export class MoviesController {
   }
 
   @Put('/genre/:id')
-  updateMovieGenre(@Param('id') id: string, @Body() movieGenreDto: UpdateMovieGenreDto){
+  updateMovieGenre(@Param('id') id: string, @Body() movieGenreDto: UpdateMovieGenreDto) {
     return this.moviesService.updateMovieGenre(id, movieGenreDto)
   }
 }

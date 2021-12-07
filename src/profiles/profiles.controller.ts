@@ -1,14 +1,13 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
-import { CreateProfileDto } from './dto/create-profile.dto';
+import { Body, Controller, Delete, Get, Param, Post, Put, UsePipes } from '@nestjs/common';
 import { UpdateProfileDto } from './dto/update-profile.dto';
 import { ProfilesService } from './profiles.service';
 import { Profile } from './schema/profile.schema';
 
 @Controller('profiles')
 export class ProfilesController {
-    constructor(private readonly profilesService: ProfilesService){}
+  constructor(private readonly profilesService: ProfilesService){}
 
-    @Get()
+  @Get()
   getAll(): Promise<Profile[]> {
     return this.profilesService.getAll();
   }

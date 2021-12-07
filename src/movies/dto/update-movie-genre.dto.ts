@@ -1,4 +1,3 @@
 export class UpdateMovieGenreDto {
-    readonly newGenreId: string
-  }
-  
+  readonly newGenreId: string
+}
