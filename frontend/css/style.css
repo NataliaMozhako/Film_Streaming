@@ -61,9 +61,25 @@ body{
     font-family: inherit;
 }
 
-.join-btn{
+.join-btn, .profile-btn{
     background: var(--primary-color);
     border-color: var(--primary-color);
+}
+
+.btn:hover{
+    background: white;
+    color: var(--primary-color);
+}
+
+.profile-btn, .logout-btn{
+    padding: 0 13px;
+    margin-left: 20px;
+    font-size: 1rem;
+}
+
+.join-btn:hover, .profile-btn:hover{
+    background: none;
+    color: var(--primary-color);
 }
 
 .search_field{
@@ -189,7 +205,7 @@ main{
     transform:translateY(0)
 }
 
-.film_descr-link{
+.film_descr-link, .delete-movie{
     color: var(--primary-color); 
     text-decoration: none; 
     border-bottom: 1px dashed var(--primary-color);
@@ -197,6 +213,11 @@ main{
     font-weight: 700;
     border: none;
     background: white;
+    cursor: pointer;
+}
+
+.delete-movie{
+    display: none;
 }
 
 #tags, #yeartags{

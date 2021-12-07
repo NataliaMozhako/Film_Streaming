@@ -53,9 +53,9 @@ function showComments(data) {
     } 
 }
 
-
 window.onload = async () => {
     try {
+        navbarDesign();
         params = (new URL(document.location)).searchParams;
         console.log(params.get('_id'));
         if (!params.has('_id')) {
@@ -77,30 +77,36 @@ function postComment(event) {
     event.preventDefault();  
     const movieId = params.get('_id');
     const content = document.getElementById('comment-text').value;
-    const userId = "61abdb9cbf0163660e43e5ed";
+    const userId = getUserData().id;
 
-    const data = {
-        movieId,
-        content,
-        userId
-    };
+    if(userId == null){
+        const commentAdd = document.querySelector('.add-comment');
+    } else {
+        const data = {
+            movieId,
+            content,
+            userId
+        };
+    
+        fetch('http://localhost:3000/comments/', {
+            method: 'POST', // *GET, POST, PUT, DELETE, etc.
+            headers: {
+                //'Authorization': 'Bearer ' + this.state.clientToken,
+                'Content-Type': 'application/json'
+                // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: JSON.stringify(data) // body data type must match "Content-Type" header
+        })
+        .then(response => response.json())
+        .then(result => {
+            console.log('Success:', result);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });  
+    }
 
-    fetch('http://localhost:3000/comments/', {
-        method: 'POST', // *GET, POST, PUT, DELETE, etc.
-        headers: {
-            //'Authorization': 'Bearer ' + this.state.clientToken,
-            'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: JSON.stringify(data) // body data type must match "Content-Type" header
-    })
-    .then(response => response.json())
-    .then(result => {
-        console.log('Success:', result);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });  
+    
 }
 
 

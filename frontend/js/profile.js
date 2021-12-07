@@ -21,11 +21,12 @@ let cancelDelete = document.querySelector('.cancel-delete-account-btn');
 
 let currentUser = [];
 
-
 window.onload = async () => {
+    navbarDesign();
     try {
-        const user_id = "61abdb9cbf0163660e43e5ed";
-        const response = await fetch('http://localhost:3000/users/' + user_id);
+        navbarDesign();
+        const userData = getUserData();
+        const response = await fetch('http://localhost:3000/users/' + userData.id);
         const data = await response.json();
         console.log(data);
         currentUser = data;
@@ -217,15 +218,16 @@ function putPassword(event){
     
 }
 
-
 function toDeleteAccount(){
     fetch('http://localhost:3000/users/' + currentUser._id, {
         method: 'DELETE',})
         .then(response => response.json())
         .then(result => {
             console.log('Success:', result);
+            localStorage.removeItem('usertoken');
         })
         .catch(error => {
             console.error('Error:', error);
         });
+
 }

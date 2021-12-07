@@ -85,6 +85,8 @@ function showMovies(data) {
             ${data[i].description.overview}
             <br/>
             <input class="film_descr-link" value="Know More" type="button" onclick="goToLink('film.html?_id=${data[i]._id}')" />
+            <br/>
+            <input class="delete-movie" value="Delete Movie" type="button" onclick="deleteMovie('${data[i]._id}')" />
         </div>
          `
         main.appendChild(movieEl);
@@ -201,9 +203,13 @@ function changeActiveYearPosition(activeItem){
     activeItem.classList.add('active');
 }
 
-getMovies('http://localhost:3000/movies');
-getMoviesGenres('http://localhost:3000/genres/');
-getMoviesYears('http://localhost:3000/years/');
+window.onload = async () => {
+    navbarDesign();
+    getMovies('http://localhost:3000/movies');
+    getMoviesGenres('http://localhost:3000/genres/');
+    getMoviesYears('http://localhost:3000/years/');
+}
+
 
 searchBar.addEventListener('keyup', (e) => {
     e.preventDefault();
@@ -228,6 +234,19 @@ searchBar.addEventListener('keyup', (e) => {
         showMovies(movieData);
     }
 });
+
+function deleteMovie(movieId){
+    console.log(movieId);
+    fetch('http://localhost:3000/movies/' + movieId, {
+        method: 'DELETE',})
+        .then(response => response.json())
+        .then(result => {
+            console.log('Success:', result);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}
 
 prev.addEventListener('click', () => {
     if (prevPage > 0) {
