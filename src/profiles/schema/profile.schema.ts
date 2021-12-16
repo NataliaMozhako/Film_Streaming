@@ -13,7 +13,7 @@ export class Profile {
   phoneNumber: number
 
   @Prop()
-  age: number
+  stripeId : string
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User' })
   user: User;

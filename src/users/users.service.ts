@@ -32,6 +32,10 @@ export class UsersService {
   async create(userDto: CreateUserDto, profileDto: CreateProfileDto): Promise<User> {
     const newUser = new this.userModel(userDto)
     const newProfile = await this.profileService.create(profileDto)
+    const stripe = require('stripe')('sk_test_51K40fNBuLEUf0D1XNtEGfsZNXbeHniWmCsTPno7aG7JMmt3ArNQhJK4JwjyzMzFcFk2PAfNKhxzmnwQTZdk0w7Ht00cxM5BRgD');
+    const customer = await stripe.customers.create({name: newUser.username, email: newUser.email})
+    newProfile.stripeId = customer.id
+    newProfile.save()
     const role = await this.roleService.getRoleByTitle("Registered User")
     newUser.profile = newProfile._id
     newUser.role = role._id

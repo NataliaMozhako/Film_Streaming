@@ -31,9 +31,11 @@
     "class-validator": "^0.13.2",
     "dcryptjs": "^1.0.5",
     "mongoose": "^6.0.13",
+    "nestjs-stripe": "^1.0.0",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
-    "rxjs": "^7.2.0"
+    "rxjs": "^7.2.0",
+    "stripe": "^8.191.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^8.0.0",

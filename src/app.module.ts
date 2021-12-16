@@ -10,8 +10,8 @@ import { RolesModule } from './roles/roles.module';
 import { YearsModule } from './years/years.module';
 import { DescriptionsModule } from './descriptions/descriptions.module';
 import { CommentsModule } from './comments/comments.module';
-import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
+import { StripeModule } from 'nestjs-stripe';
 
 @Module({
   imports: [
@@ -26,7 +26,11 @@ import { AuthModule } from './auth/auth.module';
     YearsModule,
     DescriptionsModule,
     CommentsModule,
-    AuthModule
+    AuthModule,
+    StripeModule.forRoot({
+      apiKey: 'my_secret_key',
+      apiVersion: '2020-08-27'
+    })
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -19,9 +19,9 @@ export class ProfilesService {
     return this.profileModel.findById(id)
   }
 
-  async create(movieDto: CreateProfileDto)/*: Promise<Profile>*/ {
-    const newMovie = new this.profileModel(movieDto)
-    return newMovie.save()
+  async create(profileDto: CreateProfileDto)/*: Promise<Profile>*/ {
+    const newProfile = new this.profileModel(profileDto)
+    return newProfile.save()
   }
 
   async remove(id: string): Promise<Profile> {

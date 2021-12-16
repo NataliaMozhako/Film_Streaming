@@ -17,7 +17,10 @@ export class AuthService {
 
     async login(loginDto: LoginDto) {
         const user = await this.validateUser(loginDto)
-        return this.generateToken(user)
+        if (user.blocked == false){
+            return this.generateToken(user)
+        }
+        throw new UnauthorizedException({message: 'Пользователь заблокирован'})
     }
     
     private async validateUser(loginDto: LoginDto) {
