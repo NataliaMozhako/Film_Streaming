@@ -31,12 +31,59 @@
 .des{
     width: 70%;
     line-height: 20px;
-    margin-bottom: 30px;
+}
+
+.starring{
+    margin-top: 30px;
 }
 
 .starring span{
     font-weight: 200;
     opacity: 0.6;
+}
+
+.movie-name-box form, .des-box form, .starring-box form{
+    display: flex;
+    flex-direction: column;
+}
+
+#new-movie-name, #new-movie-des, #new-movie-starring{
+    width: 60%;
+    margin-bottom: 5px;
+    padding: 10px;
+    outline: none;
+    font-size: 13px;
+    border: 1px solid var(--secondary-color);
+    display: none;
+}
+
+#update-movie-name, #update-movie-des, #update-movie-starring, #movie-name-cancel-btn, #movie-des-cancel-btn, #movie-starring-cancel-btn{
+    background: var(--third-color);
+    border: none;
+    width: 60%;
+    cursor: pointer;
+    display: none;
+    padding: 10px;
+    margin-bottom: 5px;
+}
+
+#update-movie-name:hover, #update-movie-des:hover, #update-movie-starring:hover, #movie-name-cancel-btn:hover, #movie-des-cancel-btn:hover, #movie-starring-cancel-btn:hover{
+    background: var(--secondary-color);
+    color: var(--third-color);
+}
+
+.edit-btn{
+    color: var(--primary-color);
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.edit-btn:hover{
+    color: var(--third-color);
+}
+
+#edit-movie-name, #edit-movie-des, #edit-movie-starring{
+    display: none;
 }
 
 .trailer-container,
@@ -46,10 +93,23 @@
     padding: 5vw 5vw 0;
 }
 
+.trailer-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.comments-list{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 60px;
+}
+
 .heading{
     font-size: 30px;
     font-weight: 300;
     margin-bottom: 20px;
+    align-self: center;
 }
 
 iframe{
@@ -57,13 +117,13 @@ iframe{
     height: 400px;
 }
 
-
 .rating-container{
     display: flex;
     justify-content: center;
     flex-direction: column;
+    align-items: center;
     color: var(--third-color);
-    margin: 60px 75px 0;
+    padding: 5vw 5vw 0;
 }
 
 .rating-box{
@@ -192,6 +252,8 @@ input#rate-10:checked ~ label{
     margin: 10px 0;
     padding: 20px;
     border-radius: 10px;
+    display: flex;
+    flex-direction: column;
 }
 
 .some-comment p.username{
@@ -214,6 +276,25 @@ input#rate-10:checked ~ label{
     padding-left: 10px;
 }
 
+.delete-comment{
+    border: 1px solid #fff;
+    border-radius: 2px;
+    background: none;
+    align-self: flex-end;;
+    color: #fff;
+    width: fit-content;
+    padding: 10px 10px;
+    margin-right: 15px;
+    cursor: pointer;
+    font-family: inherit;
+    display: none;
+}
+
+.delete-comment:hover{
+    background: var(--primary-color);
+    color: white;
+}
+
 .recommendations-container{
     width: 100%;
     display: flex;
@@ -233,4 +314,18 @@ input#rate-10:checked ~ label{
 
 .movie:hover p{
     opacity: 1;
+}
+
+.replace-movie{
+    color: white;
+    font-size: 2rem;
+}
+
+.not-reg-user{
+    color: var(--primary-color);
+    cursor: pointer;
+}
+
+.not-reg-user:hover{
+    color: var(--third-color);
 }

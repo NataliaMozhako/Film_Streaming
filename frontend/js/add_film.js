@@ -39,6 +39,7 @@ function getAllYears(){
     })
 }
 
+navbarDesign();
 getAllYears();
 getAllGenres();
 

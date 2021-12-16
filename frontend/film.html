@@ -16,10 +16,37 @@
 
     <div class="movie-info">
         <div class="movie-detail">
-            <h1 class="movie-name"></h1>
+            <div class="movie-name-box"> 
+                <form onsubmit="return putMovieName(event)">
+                    <h1 class="movie-name"></h1>
+                    <div class="edit-btn" id="edit-movie-name" onclick="toMovieName()">Edit movie name</div>
+                    <input type="text" placeholder="New movie name" id="new-movie-name">
+                    <input type="submit" value="Update movie name" id="update-movie-name">
+                    <input type="button" value="Cancel" id="movie-name-cancel-btn" onclick="hideUpdatedElem()">
+                </form>
+            </div>
+            
             <p class="genres"></p>
-            <p class="des"></p>
-            <p class="starring"><span>Starring:</span></p>
+
+            <div class="des-box"> 
+                <form onsubmit="return putMovieDes(event)">
+                    <p class="des"></p>
+                    <div class="edit-btn" id="edit-movie-des" onclick="toMovieDes()">Edit movie description</div>
+                    <input type="text" placeholder="New movie description" id="new-movie-des">
+                    <input type="submit" value="Update movie description" id="update-movie-des">
+                    <input type="button" value="Cancel" id="movie-des-cancel-btn" onclick="hideUpdatedElem()">
+                </form>
+            </div>
+
+            <div class="starring-box"> 
+                <form onsubmit="return putMovieActors(event)">
+                    <p class="starring"><span>Starring:</span></p>
+                    <div class="edit-btn" id="edit-movie-starring" onclick="toMovieActors()">Edit movie starring</div>
+                    <input type="text" placeholder="New movie starring" id="new-movie-starring">
+                    <input type="submit" value="Update movie starring" id="update-movie-starring">
+                    <input type="button" value="Cancel" id="movie-starring-cancel-btn" onclick="hideUpdatedElem()">
+                </form>
+            </div>
         </div>
     </div>
 
@@ -77,13 +104,12 @@
         </div>
     </div>
 
-    <div class="recommendations">
+    <!-- <div class="recommendations">
         <h1 class="heading">More Like This</h1>
         <div class="recommendations-container"></div>
-    </div>
+    </div> -->
 
     <script src="js/api.js"></script>
-    <script src="js/home.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/film.js"></script>
     

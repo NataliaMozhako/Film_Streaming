@@ -94,17 +94,25 @@ function showMovies(data) {
 
     let addFilm = document.querySelector('#add_film');
     let usersList = document.querySelector('#users_list');
-    let deleteMovie = document.querySelector('.delete-movie');
+    let deleteMovie = document.querySelectorAll('.delete-movie');
+    console.log(deleteMovie);
 
-    if(getUserData().role == "61aa0e14a058b667e986e6e2"){
-        addFilm.style.display = "block";
-        usersList.style.display = "block";
-        deleteMovie.style.display = "block";
-    } else {
-        addFilm.style.display = "none";
-        usersList.style.display = "none";
-        deleteMovie.style.display = "none";
-    }
+    if(getUserData() != null){
+        if(getUserData().role == "61aa0e14a058b667e986e6e2"){
+            addFilm.style.display = "flex";
+            usersList.style.display = "flex";
+            for(i=0; i<data.length; i++){
+                deleteMovie[i].style.display = "block";
+            }
+            
+        } else {
+            addFilm.style.display = "none";
+            usersList.style.display = "none";
+            for(i=0; i<data.length; i++){
+                deleteMovie[i].style.display = "none";
+            }
+        }
+    }    
 
     allTagFilms = document.querySelectorAll('.movie');
     console.log(tagTitle);
@@ -274,19 +282,19 @@ next.addEventListener('click', () => {
     }
 })
 
-function pageCall(page) {
-    let urlSplit = lastUrl.split('?');
-    let queryParams = urlSplit[1].split('&');
-    let key = queryParams[queryParams.length - 1].split('=');
-    if (key[0] != 'page') {
-        let url = lastUrl + '&page=' + page
-        getMovies(url);
-    } else {
-        key[1] = page.toString();
-        let a = key.join('=');
-        queryParams[queryParams.length - 1] = a;
-        let b = queryParams.join('&');
-        let url = urlSplit[0] + '?' + b
-        getMovies(url);
-    }
-}
+// function pageCall(page) {
+//     let urlSplit = lastUrl.split('?');
+//     let queryParams = urlSplit[1].split('&');
+//     let key = queryParams[queryParams.length - 1].split('=');
+//     if (key[0] != 'page') {
+//         let url = lastUrl + '&page=' + page
+//         getMovies(url);
+//     } else {
+//         key[1] = page.toString();
+//         let a = key.join('=');
+//         queryParams[queryParams.length - 1] = a;
+//         let b = queryParams.join('&');
+//         let url = urlSplit[0] + '?' + b
+//         getMovies(url);
+//     }
+// }

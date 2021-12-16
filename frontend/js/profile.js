@@ -130,6 +130,9 @@ function putUsername(event){
     .then(response => response.json())
     .then(result => {
         console.log('Success:', result);
+        if(result.message === undefined){
+            alert("The username has been successfully changed!");
+        }
     })
     .catch(error => {
         console.error('Error:', error);
@@ -155,6 +158,9 @@ function putEmail(event){
     .then(response => response.json())
     .then(result => {
         console.log('Success:', result);
+        if(result.message === undefined){
+            alert("The email has been successfully changed!");
+        }
     })
     .catch(error => {
         console.error('Error:', error);
@@ -181,6 +187,9 @@ function putPhone(event){
     .then(response => response.json())
     .then(result => {
         console.log('Success:', result);
+        if(result.message === undefined){
+            alert("The phone number has been successfully changed!");
+        }
     })
     .catch(error => {
         console.error('Error:', error);
@@ -190,31 +199,46 @@ function putPhone(event){
 
 function putPassword(event){
     event.preventDefault();
-    const oldPasswordValue = currentUser.password;
-    const inputOldPasswordValue = document.getElementById('old-password').value;
-    const newPasswordValue = document.getElementById('new-password').value;
-    const confnewPasswordValue = document.getElementById('c-new-password').value;
+    const oldPassword = document.getElementById('old-password').value;
+    const newPassword = document.getElementById('new-password').value;
+    const confnewPassword = document.getElementById('c-new-password').value;
 
-    const data = {
-        phoneNumber
-    };
-    
-    fetch('http://localhost:3000/profiles/' + currentUser.profile._id, {
-        method: 'PUT', // *GET, POST, PUT, DELETE, etc.
-        headers: {
-            //'Authorization': 'Bearer ' + this.state.clientToken,
-            'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: JSON.stringify(data) // body data type must match "Content-Type" header
-    })
-    .then(response => response.json())
-    .then(result => {
-        console.log('Success:', result);
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
+    if (newPassword.length < 6 || newPassword.length > 16){
+        alert("The password must be between 6 and 16 characters long!");
+    }
+    else{
+        if (newPassword === confnewPassword){
+            const data = {
+                oldPassword,
+                newPassword
+            };
+            
+            fetch('http://localhost:3000/users/password/' + currentUser._id, {
+                method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+                headers: {
+                    //'Authorization': 'Bearer ' + this.state.clientToken,
+                    'Content-Type': 'application/json'
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: JSON.stringify(data) // body data type must match "Content-Type" header
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log('Success:', result);
+                if(result.message === undefined){
+                    alert("The password has been successfully changed!");
+                } else {
+                    alert(result.message);
+                }
+                
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        } else{
+            alert("The new password and the confirmed new password must match!");
+        }
+    }   
     
 }
 

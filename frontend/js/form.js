@@ -54,6 +54,11 @@ function toRegistrate(event){
         .then(result => {
             console.log('Success:', result);
             tokenReg = result;
+            if(result.message === undefined){
+                alert("The user has been successfully registered!");
+            } else{
+                alert(result.message);
+            }
             localStorage.removeItem('usertoken');
             localStorage.setItem('usertoken', tokenReg.token.toString());
             goToLink('profile.html');
@@ -87,6 +92,11 @@ function toLogIn(event){
     .then(result => {
         console.log('Success:', result);
         tokenLog = result;
+        if(result.message === undefined){
+            alert("The user has been successfully login!");
+        } else{
+            alert(result.message);
+        }
         localStorage.removeItem('usertoken');
         localStorage.setItem('usertoken', tokenLog.token.toString());
         goToLink('profile.html');

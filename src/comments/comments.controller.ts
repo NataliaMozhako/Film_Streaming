@@ -20,7 +20,7 @@ export class CommentsController {
     return this.commentsService.getById(id)
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @UsePipes(ValidationPipe)
   @Post()
   create(@Body() createCreateDto: CreateCommentDto): Promise<Comment> {

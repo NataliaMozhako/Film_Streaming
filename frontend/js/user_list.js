@@ -49,11 +49,10 @@ function showAllUsers(data) {
             <td>${data[i].username}</td>
             <td>${data[i].email}</td>
             <td>${currentStatus}</td>
-            <td><button class="user-action-btn">${labelAction}</button></td>
+            <td><button class="user-action-btn" onclick="banUser('${data[i]._id}')">${labelAction}</button></td>
          `
         tbodyEl.appendChild(trEl);
     }
-
     tableEl.appendChild(tbodyEl);
 }
 
@@ -82,3 +81,9 @@ searchUserBar.addEventListener('keyup', (e) => {
         showAllUsers(allUsersData);
     }
 });
+
+function banUser(userId){
+    console.log(userId);
+    fetch('http://localhost:3000/users/ban/' + userId).then(res => res.json()).then(data => {
+        console.log(data)});
+}

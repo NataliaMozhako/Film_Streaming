@@ -1,6 +1,18 @@
 let api_key = "14fd4993a9aad63c9047cbac216ee8d1";
 let params;
 const allcomments = document.querySelector('.old-comment');
+let editMovieName = document.querySelector('#edit-movie-name');
+let newMovieName = document.querySelector('#new-movie-name');
+let updateMovieName = document.querySelector('#update-movie-name');
+let cancelMovieName = document.querySelector('#movie-name-cancel-btn');
+let editMovieDes = document.querySelector('#edit-movie-des');
+let newMovieDes = document.querySelector('#new-movie-des');
+let updateMovieDes = document.querySelector('#update-movie-des');
+let cancelMovieDes = document.querySelector('#movie-des-cancel-btn');
+let editMovieActors = document.querySelector('#edit-movie-starring');
+let newMovieActors = document.querySelector('#new-movie-starring');
+let updateMovieActors = document.querySelector('#update-movie-starring');
+let cancelMovieActors = document.querySelector('#movie-starring-cancel-btn');
 
 let currentFilm;
 
@@ -27,15 +39,53 @@ const setupMovieInfo = (data) => {
 
     cast.innerHTML += data.description.actors;
 
-    trailerContainer.innerHTML += `
-        <iframe src="https://youtube.com/embed/${data.movieLink}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-        `;
+
+    if(getUserData() != null){
+        if(getUserData().role == "61aa0ddca058b667e986e6df"){
+            trailerContainer.innerHTML = `
+            <h1 class="heading">Movie</h1>
+            <p class="replace-movie">To watch the movie, you need to <span class="not-reg-user" onclick="goToLink('profile.html')">purchase a subscription</span>.</p>
+            `;
+            
+        } else {
+            trailerContainer.innerHTML = `
+            <h1 class="heading">Movie</h1>
+            <iframe src="https://youtube.com/embed/${data.movieLink}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            `;
+        }
+
+    } else {
+        trailerContainer.innerHTML = `
+            <h1 class="heading">Movie</h1>
+            <p class="replace-movie">To watch the movie, you need to <span class="not-reg-user" onclick="goToLink('form.html')">Log In or Sing In</span>.</p>
+            `;
+    }
 
     if (data.comment.length !== 0) {
         showComments(data);
     } else {
         allcomments.innerHTML = `<h1 class="no-results">The film has no comments yet. Write your comment first!</h1>`
     } 
+
+    let deleteComment = document.querySelectorAll('.delete-comment');
+    if(getUserData() != null){
+        if(getUserData().role == "61aa0e14a058b667e986e6e2"){
+            editMovieName.style.display = "block";
+            editMovieDes.style.display = "block";
+            editMovieActors.style.display = "block";  
+            for(i=0; i<data.comment.length; i++){
+                deleteComment[i].style.display = "block";
+            }          
+        } else {
+            editMovieName.style.display = "none";
+            editMovieDes.style.display = "none";
+            editMovieActors.style.display = "none";
+            for(i=0; i<data.comment.length; i++){
+                deleteComment[i].style.display = "none";
+            } 
+        }
+    }
+
 }
 
 function showComments(data) {
@@ -47,7 +97,8 @@ function showComments(data) {
         commentEl.innerHTML = `
             <p class="username"><span>Username:</span>${data.comment[i].username}</p>
             <p class="comment-descr">${data.comment[i].content}</p>
-            <p class="comment-date">${data.comment[i].date}</p>          
+            <p class="comment-date">${data.comment[i].date}</p>    
+            <input class="delete-comment" value="Delete Comment" type="button" onclick="deleteComment('${data.comment[i]._id}')" />      
           `
         allcomments.appendChild(commentEl);
     } 
@@ -86,6 +137,7 @@ function postComment(event) {
         commentAdd.appendChild(errmessageEl);
     } else {
         const userId = getUserData().id;
+        console.log(getUserData().id);
         const data = {
             movieId,
             content,
@@ -109,8 +161,6 @@ function postComment(event) {
             console.error('Error:', error);
         });  
     }
-
-    
 }
 
 
@@ -164,3 +214,133 @@ function getRating(event) {
     
 }
 
+function hideUpdatedElem(){
+    editMovieName.style.display = "block";
+    newMovieName.style.display = "none";
+    updateMovieName.style.display = "none";
+    cancelMovieName.style.display = "none";
+    editMovieDes.style.display = "block";
+    newMovieDes.style.display = "none";
+    updateMovieDes.style.display = "none";
+    cancelMovieDes.style.display = "none";
+    editMovieActors.style.display = "block";
+    newMovieActors.style.display = "none";
+    updateMovieActors.style.display = "none";
+    cancelMovieActors.style.display = "none";
+}
+
+function toMovieName(){
+    hideUpdatedElem();
+    editMovieName.style.display = "none";
+    newMovieName.style.display = "block";
+    updateMovieName.style.display = "block";
+    cancelMovieName.style.display = "block";
+}
+
+
+function toMovieDes(){
+    hideUpdatedElem();
+    editMovieDes.style.display = "none";
+    newMovieDes.style.display = "block";
+    updateMovieDes.style.display = "block";
+    cancelMovieDes.style.display = "block";
+}
+
+
+
+function toMovieActors(){
+    hideUpdatedElem();
+    editMovieActors.style.display = "none";
+    newMovieActors.style.display = "block";
+    updateMovieActors.style.display = "block";
+    cancelMovieActors.style.display = "block";
+}
+
+
+function putMovieName(event){
+    event.preventDefault();
+    const title = document.getElementById('new-movie-name').value;
+    const data = {
+        title
+    };
+    
+    fetch('http://localhost:3000/movies/' + currentFilm._id, {
+        method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+        headers: {
+            //'Authorization': 'Bearer ' + this.state.clientToken,
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify(data) // body data type must match "Content-Type" header
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log('Success:', result);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+function putMovieDes(event){
+    event.preventDefault();
+    const overview = document.getElementById('new-movie-des').value;
+    const data = {
+        overview
+    };
+    
+    fetch('http://localhost:3000/descriptions/' + currentFilm.description._id, {
+        method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+        headers: {
+            //'Authorization': 'Bearer ' + this.state.clientToken,
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify(data) // body data type must match "Content-Type" header
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log('Success:', result);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+function putMovieActors(event){
+    event.preventDefault();
+    const actors = document.getElementById('new-movie-starring').value;
+    const data = {
+        actors
+    };
+    
+    fetch('http://localhost:3000/descriptions/' + currentFilm.description._id, {
+        method: 'PUT', // *GET, POST, PUT, DELETE, etc.
+        headers: {
+            //'Authorization': 'Bearer ' + this.state.clientToken,
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: JSON.stringify(data) // body data type must match "Content-Type" header
+    })
+    .then(response => response.json())
+    .then(result => {
+        console.log('Success:', result);
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+function deleteComment(commentId){
+    console.log(commentId);
+    fetch('http://localhost:3000/comments/' + commentId, {
+        method: 'DELETE',})
+        .then(response => response.json())
+        .then(result => {
+            console.log('Success:', result);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+}

@@ -117,6 +117,6 @@ export class UsersService {
       }
       throw new UnauthorizedException({message: 'Неверно введен пароль'})
     }
-    throw new UnauthorizedException({message: 'Новый  пароль не должен совпадать со старым'})  
+    throw new UnauthorizedException({message: 'The entered old password don`t match the valid old password!'})
   }
 }

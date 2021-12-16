@@ -35,7 +35,7 @@ function navbarDesign(){
     } else {
         divEl.innerHTML = `
         <button class="btn profile-btn" onclick="goToLink('profile.html')">User Profile</button>
-        <button class="btn logout-btn onclick="toLogOut()">Log out</button>
+        <button class="btn logout-btn" onclick="toLogOut()">Log out</button>
         `
         navbarEl.appendChild(divEl);
     }

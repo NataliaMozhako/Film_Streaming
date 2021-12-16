@@ -24,8 +24,6 @@
     justify-content: center;
     align-items: stretch;
     flex-direction: column;
-    //border: 2px solid var(--secondary-color);
-    //border-radius: 30px;
 }
 
 .profile-info h3{
@@ -133,7 +131,6 @@
 .subscription-info h3{
     color: var(--third-color);
     font-size: 2rem;
-    item-display: center;
     margin: 0 15px;
 }
 
