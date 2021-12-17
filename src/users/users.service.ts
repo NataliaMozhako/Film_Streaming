@@ -76,23 +76,23 @@ export class UsersService {
     return user
   }
 
-  async addRole(updateUserRoleDto: UpdateUserRoleDto, id: string) {
-    const user = await this.userModel.findById(id)
-    const role1 = await this.roleService.getById(user.role.toString())
-    const role2 = await this.roleService.getById(updateUserRoleDto.role)
-    if (user && role2) {
-      user.role = role2._id
-      role2.user.push(user._id)
-      role2.save()
-      const indexRole = role1.user.indexOf(user._id, 0)
-      if (indexRole > -1) {
-        role1.user.splice(indexRole, 1);
-      }
-      role1.save()
-      return user.save()
-    }
-    throw new HttpException('Пользователь или роль не найдены', HttpStatus.NOT_FOUND)
-  }
+  // async addRole(updateUserRoleDto: UpdateUserRoleDto, id: string) {
+  //   const user = await this.userModel.findById(id)
+  //   const role1 = await this.roleService.getById(user.role.toString())
+  //   const role2 = await this.roleService.getById(updateUserRoleDto.role)
+  //   if (user && role2) {
+  //     user.role = role2._id
+  //     role2.user.push(user._id)
+  //     role2.save()
+  //     const indexRole = role1.user.indexOf(user._id, 0)
+  //     if (indexRole > -1) {
+  //       role1.user.splice(indexRole, 1);
+  //     }
+  //     role1.save()
+  //     return user.save()
+  //   }
+  //   throw new HttpException('Пользователь или роль не найдены', HttpStatus.NOT_FOUND)
+  // }
 
   async banUser(id: string) {
     const user = await this.userModel.findById(id)
@@ -123,4 +123,23 @@ export class UsersService {
     }
     throw new UnauthorizedException({message: 'The entered old password don`t match the valid old password!'})
   }
+
+  async updateRole(id: string){
+    const user = await this.userModel.findById(id)
+    const role1 = await this.roleService.getById(user.role.toString())
+    const role2 = await this.roleService.getRoleByTitle("Client")
+    if (user && role2) {
+      user.role = role2._id
+      role2.user.push(user._id)
+      role2.save()
+      const indexRole = role1.user.indexOf(user._id, 0)
+      if (indexRole > -1) {
+        role1.user.splice(indexRole, 1);
+      }
+      role1.save()
+      return user.save()
+    }
+    throw new HttpException('Пользователь или роль не найдены', HttpStatus.NOT_FOUND)
+  }
+  
 }

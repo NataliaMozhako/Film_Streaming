@@ -44,10 +44,10 @@ export class UsersController {
     return this.usersService.update(id, updateUserDto)
   }
 
-  @Put('/role/:id')
-  addRole(@Body() updateUserRoleDto: UpdateUserRoleDto, @Param('id') id: string){
-    return this.usersService.addRole(updateUserRoleDto, id)
-  }
+  // @Put('/role/:id')
+  // addRole(@Body() updateUserRoleDto: UpdateUserRoleDto, @Param('id') id: string){
+  //   return this.usersService.addRole(updateUserRoleDto, id)
+  // }
 
   @Get('/ban/:id')
   banUser(@Param('id') id: string){
@@ -57,5 +57,10 @@ export class UsersController {
   @Put('/password/:id')
   updatePassword(@Param('id') id: string, @Body() updatePasswordDto: UpdatePasswordDto){
     return this.usersService.updatePassword(id, updatePasswordDto)
+  }
+
+  @Get('/role/:id')
+  updateRole(@Param('id') id: string){
+    return this.usersService.updateRole(id)
   }
 }
