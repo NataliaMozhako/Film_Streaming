@@ -12,7 +12,6 @@ import { DescriptionsModule } from './descriptions/descriptions.module';
 import { CommentsModule } from './comments/comments.module';
 import { AuthModule } from './auth/auth.module';
 import { StripeModule } from 'nestjs-stripe';
-import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -31,9 +30,6 @@ import { ConfigModule } from '@nestjs/config';
     StripeModule.forRoot({
       apiKey: 'my_secret_key',
       apiVersion: '2020-08-27'
-    }),
-    ConfigModule.forRoot({
-      envFilePath: '.env'
     })
   ],
   controllers: [AppController],

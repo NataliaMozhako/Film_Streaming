@@ -11,6 +11,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User, UserDocument } from './schema/user.schema';
 import { UpdatePasswordDto } from './dto/update-password.dto';
+import { AuthService } from 'src/auth/auth.service';
 
 @Injectable()
 export class UsersService {
@@ -18,7 +19,8 @@ export class UsersService {
   constructor(
     @InjectModel(User.name) private userModel: Model<UserDocument>,
     private readonly roleService: RolesService,
-    private readonly profileService: ProfilesService
+    private readonly profileService: ProfilesService,
+    private readonly authService: AuthService
   ) { }
 
   async getAll(): Promise<User[]> {
@@ -137,9 +139,9 @@ export class UsersService {
         role1.user.splice(indexRole, 1);
       }
       role1.save()
-      return user.save()
+      user.save()
+      return this.authService.generateToken(user)
     }
     throw new HttpException('Пользователь или роль не найдены', HttpStatus.NOT_FOUND)
   }
-  
 }
