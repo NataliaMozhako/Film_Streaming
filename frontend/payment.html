@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <title>Subscription prices</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/form.css">
+    <link rel="stylesheet" href="css/payment.css">
+</head>
+
+<body>
+    <div class="pay-container">
+        <div class="pay-panel">
+            <div class="price-info">
+                <p class="pay-title">Purchase a subscription</p>
+                <p class="choosen-subs"></p>
+            </div>
+            <form id="payment-form">
+                <div id="card-element">
+                  <!-- Elements will create input elements here -->
+                </div>
+            
+                <!-- We'll put the error messages in this element -->
+                <div id="card-element-errors" role="alert"></div>
+                <button type="submit" class="buy-btn">Buy subscribtion</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- <script src="https://js.stripe.com/v3/"></script> -->
+
+    <script src="js/utils.js"></script>
+    <script src="js/payment.js"></script>
+</body>
+</html>
+
+
+

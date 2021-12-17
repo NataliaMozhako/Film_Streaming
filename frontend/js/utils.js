@@ -8,6 +8,24 @@ function getUserData(){
     }
 }
 
+function getPriceId(){
+    if(localStorage.getItem('priceId') == null){
+        return null;
+    } else {
+        var result = localStorage.getItem('priceId');
+        return result
+    }
+}
+
+function getSubcLabel(){
+    if(localStorage.getItem('subscLabel') == null){
+        return null;
+    } else {
+        var result = localStorage.getItem('subscLabel');
+        return result
+    }
+}
+
 function goToLink(href){
     location.href = href;
 }

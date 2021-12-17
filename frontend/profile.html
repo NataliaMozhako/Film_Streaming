@@ -69,11 +69,15 @@
             <div class="subscription-info">
                 <h3>Buy subscription</h3>
                 <div class="subsc-kind">
-                    <button class="subsc-btn" id="month">For a month</button>
-                    <button class="subsc-btn" id="six-month">For a 6 months</button>
-                    <button class="subsc-btn" id="one-year">For a 1 year</button>
+                    <button class="subsc-btn" id="month" onclick="toPaymentForm('price_1K4WsnBuLEUf0D1X7xHac3pq', '$2.00 USD / month')">$2.00 USD for a month</button>
+                    <button class="subsc-btn" id="six-month" onclick="toPaymentForm('price_1K6K7UBuLEUf0D1X0u4zqRcn', '$10.00 USD / 6 months')">$10.00 USD for a 6 months</button>
+                    <button class="subsc-btn" id="one-year" onclick="toPaymentForm('price_1K6K1wBuLEUf0D1XAFml3S2V', '$15.00 USD / year')">$15.00 USD for a 1 year</button>
                 </div>
-                
+            </div>
+
+            <div class="cur-subscription">
+                <h3>Current subscription:</h3>
+                <p class="current-subscr"></p>
             </div>
 
         </div>

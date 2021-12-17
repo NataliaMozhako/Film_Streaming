@@ -33,40 +33,50 @@ function toRegistrate(event){
     const password = document.getElementById('password_signup').value;
     const passwordSignup = document.getElementById('cpassword_signup').value;
 
-    if(password === passwordSignup){
-        const data = {
-            username,
-            email,
-            phoneNumber,
-            password
-        };
+    if (password.length < 6 || password.length > 16){
+        alert("The password must be between 6 and 16 characters long!");
+    }
+    else{
+        if(password === passwordSignup){
+            const data = {
+                username,
+                email,
+                phoneNumber,
+                password
+            };
+        
+            fetch('http://localhost:3000/auth/registration', {
+                method: 'POST', // *GET, POST, PUT, DELETE, etc.
+                headers: {
+                    //'Authorization': 'Bearer ' + this.state.clientToken,
+                    'Content-Type': 'application/json'
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: JSON.stringify(data) // body data type must match "Content-Type" header
+            })
+            .then(response => response.json())
+            .then(result => {
+                console.log('Success:', result);
+                tokenReg = result;
+                if(result.message === undefined){
+                    alert("The user has been successfully registered!");
+                } else{
+                    alert(result.message);
+                }
+                localStorage.removeItem('usertoken');
+                localStorage.removeItem('priceId');
+                localStorage.removeItem('subscLabel');
+                localStorage.setItem('usertoken', tokenReg.token.toString());
+                goToLink('profile.html');
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });          
+        } else{
+            alert("The password and the confirmed password must match!");
+        }
+    }
     
-        fetch('http://localhost:3000/auth/registration', {
-            method: 'POST', // *GET, POST, PUT, DELETE, etc.
-            headers: {
-                //'Authorization': 'Bearer ' + this.state.clientToken,
-                'Content-Type': 'application/json'
-                // 'Content-Type': 'application/x-www-form-urlencoded',
-            },
-            body: JSON.stringify(data) // body data type must match "Content-Type" header
-        })
-        .then(response => response.json())
-        .then(result => {
-            console.log('Success:', result);
-            tokenReg = result;
-            if(result.message === undefined){
-                alert("The user has been successfully registered!");
-            } else{
-                alert(result.message);
-            }
-            localStorage.removeItem('usertoken');
-            localStorage.setItem('usertoken', tokenReg.token.toString());
-            goToLink('profile.html');
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });          
-    }    
 }
 
 function toLogIn(event){
@@ -98,6 +108,8 @@ function toLogIn(event){
             alert(result.message);
         }
         localStorage.removeItem('usertoken');
+        localStorage.removeItem('priceId');
+        localStorage.removeItem('subscLabel');
         localStorage.setItem('usertoken', tokenLog.token.toString());
         goToLink('profile.html');
     })

@@ -18,11 +18,30 @@ let updatePassword = document.querySelector('#update-password');
 let cancelPassword = document.querySelector('#password-cancel-btn');
 let confirmDelete = document.querySelector('.confirm-delete-account-btn');
 let cancelDelete = document.querySelector('.cancel-delete-account-btn');
+let buySubscr = document.querySelector('.subscription-info');
+let curSubscr = document.querySelector('.cur-subscription');
+let curSubscrInfo = document.querySelector('.current-subscr'); 
+
 
 let currentUser = [];
 
 window.onload = async () => {
     navbarDesign();
+    if (getUserData().role == "61aa0e14a058b667e986e6e2"){
+        curSubscr.style.display = "none";
+        buySubscr.style.display = "none";
+    } else {
+        if(getPriceId() === null){
+            curSubscr.style.display = "none";
+            buySubscr.style.display = "block";
+        }
+        else{
+            curSubscrInfo.innerHTML = getSubcLabel();
+            curSubscr.style.display = "block";
+            buySubscr.style.display = "none";
+        }
+    }
+    
     try {
         navbarDesign();
         const userData = getUserData();
@@ -249,9 +268,20 @@ function toDeleteAccount(){
         .then(result => {
             console.log('Success:', result);
             localStorage.removeItem('usertoken');
+            goToLink('form.html');
         })
         .catch(error => {
             console.error('Error:', error);
         });
 
+}
+
+function toPaymentForm(priceIdProfile, subscLabel){
+    localStorage.removeItem('priceId');
+    localStorage.setItem('priceId', priceIdProfile.toString());
+    localStorage.removeItem('subscLabel');
+    localStorage.setItem('subscLabel', subscLabel.toString());
+    console.log(getPriceId());
+    console.log(getSubcLabel());
+    goToLink('payment.html')
 }

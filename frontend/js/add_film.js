@@ -50,10 +50,10 @@ function onSubmit(event) {
     const movieLink = document.getElementById('movie_link').value;
     const poster = document.getElementById('movie_poster').value;
     const backdrop = document.getElementById('movie_image').value;
-    const rating = document.getElementById('movie_rating').value;
+    const rating = +(document.getElementById('movie_rating').value);
     const actors = document.getElementById('movie_actors').value;
-    const ageLimitation = document.getElementById('movie_age_limitation').value;
-    const voteCount = document.getElementById('movie_vote_count').value;
+    const ageLimitation = +(document.getElementById('movie_age_limitation').value);
+    const voteCount = +(document.getElementById('movie_vote_count').value);
     const overview = document.getElementById('movie_overview').value;
     const yearId = selectMovieYear.value;
     const genreId = selectMovieGanre.value;
